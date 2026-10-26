@@ -6,8 +6,8 @@ export type ButtonSize = 'sm' | 'md' | 'lg';
 /**
  * Variants are separated by *role*, not decoration. Exactly one primary action
  * should be visible in any view; everything else steps down to secondary or
- * ghost. `accent` (red) is for the one call to action a screen exists for —
- * search the registry, publish — and `inverse` sits on a navy surface.
+ * ghost. `accent` (gold, dark label) is for the one call to action a screen
+ * exists for, and `inverse` sits on a green surface.
  *
  * Solid fills use --color-primary* / accent-solid / danger-solid so the numbered
  * ramps can invert under prefers-color-scheme without breaking hover darkening.
@@ -20,9 +20,9 @@ const VARIANTS: Record<ButtonVariant, string> = {
     'disabled:bg-slate-300 disabled:text-slate-500 disabled:shadow-none',
   ),
   secondary: cn(
-    'bg-surface text-navy-700 border border-navy-700 shadow-xs',
+    'bg-surface text-green-700 border border-green-700 shadow-xs',
     'hover:bg-primary-soft',
-    'active:bg-navy-100',
+    'active:bg-green-100',
     'disabled:bg-slate-100 disabled:text-slate-400 disabled:border-hairline disabled:shadow-none',
   ),
   ghost: cn(
@@ -32,7 +32,7 @@ const VARIANTS: Record<ButtonVariant, string> = {
     'disabled:text-slate-400 disabled:bg-transparent',
   ),
   accent: cn(
-    'bg-accent-solid text-on-primary shadow-xs',
+    'bg-accent-solid text-on-accent shadow-xs',
     'hover:bg-accent-solid-hover hover:shadow-sm',
     'active:bg-accent-solid-active',
     'disabled:bg-slate-300 disabled:text-slate-500 disabled:shadow-none',

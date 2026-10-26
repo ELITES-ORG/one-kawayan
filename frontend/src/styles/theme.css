@@ -1,5 +1,5 @@
 /* ==========================================================================
-   One Kawayan — design tokens
+   OneKawayan — design tokens
    --------------------------------------------------------------------------
    Everything visual resolves to a token defined here. Components never carry
    raw hex values, arbitrary pixel sizes, or one-off easings.
@@ -8,11 +8,12 @@
    rather than evenly spaced in maths. Nudging lightness on any step keeps its
    hue and saturation intact, which sRGB hex triplets cannot promise.
 
-   Palette rationale — navy and red (ADR 0044):
-     Neutrals are cool slate on white. Primary is a deep, slightly indigo navy
-     (#032B61). The accent is a signal red used for calls to action and badges.
-     The ramps are named for their colours: `slate`, `navy` and `red`. They
-     replace Tailwind's own ramps of the same names, which the app never uses.
+   Palette rationale — forest green and gold (ADR 0016):
+     Taken from the municipal seal. Primary is the seal green (#0F452B).
+     The accent is the seal gold (#FAC247), used as a fill with dark text on it.
+     Gold on cream does not pass as text. Neutrals are a warm stone.
+     The ramps are `slate`, `green` and `gold`. They replace Tailwind's own
+     ramps of the same names, which the app never uses.
 
    Each colour that differs between themes is one `light-dark()` declaration.
    Lightning CSS resolves that from the computed `color-scheme`, so setting
@@ -26,78 +27,76 @@
    `var(--color-slate-950)` silently resolves to nothing. */
 @theme static {
   /* ---------------------------------------------------------------- fonts */
-  /* Fraunces carries headings and display type; Plus Jakarta Sans carries UI
-     and body (ADR 0045, amends 0044; still two families, per 0011). */
+  /* One family. Plus Jakarta Sans carries display, headings, UI, and body
+     (ADR 0016). A second display face costs a download and a second rhythm. */
   --font-sans: 'Plus Jakarta Sans Variable', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
-  --font-serif: 'Fraunces Variable', 'Iowan Old Style', Georgia, serif;
-  --font-heading: var(--font-serif);
+  --font-serif: var(--font-sans);
+  --font-heading: var(--font-sans);
   --font-body: var(--font-sans);
-  --font-display: var(--font-heading);
+  --font-display: var(--font-sans);
   --font-mono: ui-monospace, 'Cascadia Code', 'SF Mono', Menlo, monospace;
 
   /* ------------------------------------------------------------- neutrals */
-  /* Cool slate greys. Hue drifts slightly cooler as it darkens, which
-     is how real ink behaves and stops the darks from going muddy.
+  /* Warm stone, so the greys sit on cream instead of fighting it.
      Dark steps invert their role: low steps become dark surface tints, high
      steps become light text. */
-  --color-slate-50: light-dark(oklch(0.975 0.005 258), oklch(0.22 0.015 258));
-  --color-slate-100: light-dark(oklch(0.955 0.008 258), oklch(0.26 0.018 258));
-  --color-slate-200: light-dark(oklch(0.929 0.011 257), oklch(0.32 0.022 258));
-  --color-slate-300: light-dark(oklch(0.864 0.018 256), oklch(0.4 0.026 258));
-  --color-slate-400: light-dark(oklch(0.72 0.03 257), oklch(0.52 0.03 258));
-  --color-slate-500: light-dark(oklch(0.554 0.041 257), oklch(0.64 0.03 258));
-  --color-slate-600: light-dark(oklch(0.46 0.04 257), oklch(0.74 0.025 258));
-  --color-slate-700: light-dark(oklch(0.385 0.04 258), oklch(0.84 0.018 258));
-  --color-slate-800: light-dark(oklch(0.3 0.04 258), oklch(0.9 0.012 258));
-  --color-slate-900: light-dark(oklch(0.24 0.04 258), oklch(0.94 0.008 258));
-  --color-slate-950: light-dark(oklch(0.19 0.04 258), oklch(0.97 0.005 258));
+  --color-slate-50: light-dark(oklch(0.975 0.006 95), oklch(0.23 0.012 158));
+  --color-slate-100: light-dark(oklch(0.955 0.008 95), oklch(0.27 0.014 158));
+  --color-slate-200: light-dark(oklch(0.925 0.01 95), oklch(0.33 0.016 158));
+  --color-slate-300: light-dark(oklch(0.86 0.014 95), oklch(0.42 0.018 158));
+  --color-slate-400: light-dark(oklch(0.72 0.018 95), oklch(0.55 0.02 158));
+  --color-slate-500: light-dark(oklch(0.55 0.02 100), oklch(0.66 0.018 158));
+  --color-slate-600: light-dark(oklch(0.46 0.02 110), oklch(0.76 0.016 95));
+  --color-slate-700: light-dark(oklch(0.40 0.02 120), oklch(0.84 0.012 95));
+  --color-slate-800: light-dark(oklch(0.32 0.02 140), oklch(0.90 0.01 95));
+  --color-slate-900: light-dark(oklch(0.26 0.02 150), oklch(0.94 0.008 95));
+  --color-slate-950: light-dark(oklch(0.20 0.02 158), oklch(0.97 0.006 95));
 
   /* --------------------------------------------------------------- primary */
-  /* Navy. Step 700 is the brand navy (#032B61) and is --color-primary.
-     Chroma stays moderate so large fills never vibrate. */
-  --color-navy-50: light-dark(oklch(0.975 0.012 258), oklch(0.22 0.03 262));
-  --color-navy-100: light-dark(oklch(0.945 0.026 258), oklch(0.26 0.045 262));
-  --color-navy-200: light-dark(oklch(0.895 0.05 258), oklch(0.32 0.06 262));
-  --color-navy-300: light-dark(oklch(0.81 0.08 259), oklch(0.42 0.08 261));
-  --color-navy-400: light-dark(oklch(0.64 0.12 258), oklch(0.52 0.1 261));
-  --color-navy-500: light-dark(oklch(0.5 0.14 258), oklch(0.64 0.11 260));
-  --color-navy-600: light-dark(oklch(0.38 0.13 257), oklch(0.72 0.1 260));
-  --color-navy-700: light-dark(oklch(0.3 0.105 258), oklch(0.79 0.08 260));
-  --color-navy-800: light-dark(oklch(0.25 0.085 258), oklch(0.86 0.05 260));
-  --color-navy-900: light-dark(oklch(0.21 0.07 259), oklch(0.92 0.03 260));
-  --color-navy-950: light-dark(oklch(0.17 0.055 260), oklch(0.96 0.015 260));
+  /* Forest green. Step 700 is the seal green (#0F452B) and is --color-primary.
+     Chroma stays near the seal so a large fill does not turn neon. */
+  --color-green-50: light-dark(oklch(0.97 0.016 158), oklch(0.24 0.03 158));
+  --color-green-100: light-dark(oklch(0.94 0.028 158), oklch(0.28 0.035 158));
+  --color-green-200: light-dark(oklch(0.89 0.04 158), oklch(0.34 0.045 158));
+  --color-green-300: light-dark(oklch(0.78 0.055 158), oklch(0.42 0.055 158));
+  --color-green-400: light-dark(oklch(0.62 0.065 158), oklch(0.55 0.065 158));
+  --color-green-500: light-dark(oklch(0.50 0.072 158), oklch(0.64 0.07 158));
+  --color-green-600: light-dark(oklch(0.42 0.072 158), oklch(0.74 0.06 158));
+  --color-green-700: light-dark(oklch(0.348 0.072 158), oklch(0.82 0.05 158));
+  --color-green-800: light-dark(oklch(0.30 0.06 158), oklch(0.88 0.04 158));
+  --color-green-900: light-dark(oklch(0.26 0.05 158), oklch(0.93 0.025 158));
+  --color-green-950: light-dark(oklch(0.20 0.04 158), oklch(0.96 0.015 158));
 
   /* ---------------------------------------------------------------- accent */
-  /* Signal red. Step 500 is #E63946: decorative and large text
-     only (4.17:1 on white). Step 600 is the solid fill that carries white
-     labels (4.8:1). Not a status colour; status red is `danger`, which sits
-     deeper and browner so the two are not confused. */
-  --color-red-50: light-dark(oklch(0.97 0.015 20), oklch(0.24 0.04 22));
-  --color-red-100: light-dark(oklch(0.94 0.035 20), oklch(0.28 0.06 22));
-  --color-red-200: light-dark(oklch(0.885 0.07 21), oklch(0.36 0.09 22));
-  --color-red-300: light-dark(oklch(0.82 0.115 21), oklch(0.46 0.13 22));
-  --color-red-400: light-dark(oklch(0.72 0.17 22), oklch(0.56 0.16 22));
-  --color-red-500: light-dark(oklch(0.612 0.208 22.2), oklch(0.68 0.17 22));
-  --color-red-600: light-dark(oklch(0.575 0.215 23.5), oklch(0.64 0.17 22));
-  --color-red-700: light-dark(oklch(0.49 0.18 23), oklch(0.72 0.14 22));
-  --color-red-800: light-dark(oklch(0.4 0.145 23), oklch(0.82 0.09 22));
-  --color-red-900: light-dark(oklch(0.33 0.115 23), oklch(0.9 0.05 22));
+  /* Seal gold (#FAC247) at step 500. It is a fill. White and cream both fail
+     on it, so labels on a gold fill use --color-on-accent. Steps 700 and
+     darker are the only golds that can be text on cream. Not a status colour. */
+  --color-gold-50: light-dark(oklch(0.98 0.02 90), oklch(0.26 0.03 84));
+  --color-gold-100: light-dark(oklch(0.96 0.04 90), oklch(0.32 0.04 84));
+  --color-gold-200: light-dark(oklch(0.93 0.07 88), oklch(0.40 0.055 84));
+  --color-gold-300: light-dark(oklch(0.90 0.10 86), oklch(0.52 0.08 84));
+  --color-gold-400: light-dark(oklch(0.88 0.13 85), oklch(0.70 0.11 84));
+  --color-gold-500: light-dark(oklch(0.844 0.149 84), oklch(0.78 0.12 84));
+  --color-gold-600: light-dark(oklch(0.70 0.13 78), oklch(0.84 0.11 86));
+  --color-gold-700: light-dark(oklch(0.52 0.10 70), oklch(0.88 0.08 90));
+  --color-gold-800: light-dark(oklch(0.42 0.08 65), oklch(0.92 0.05 90));
+  --color-gold-900: light-dark(oklch(0.34 0.06 60), oklch(0.95 0.03 90));
 
   /* -------------------------------------------------------------- semantic */
-  /* Status hues sit far enough from both brand colours to stay unambiguous.
+  /* Status hues sit off the seal green and the seal gold on purpose.
      Rule: status is never signalled by colour alone — always an icon or a
      label beside it. */
-  --color-success-50: light-dark(oklch(0.960 0.026 152), oklch(0.24 0.04 152));
-  --color-success-100: light-dark(oklch(0.918 0.052 152), oklch(0.28 0.05 152));
-  --color-success-500: light-dark(oklch(0.612 0.118 150), oklch(0.68 0.11 150));
-  --color-success-600: light-dark(oklch(0.520 0.104 150), oklch(0.74 0.1 150));
-  --color-success-700: light-dark(oklch(0.432 0.086 150), oklch(0.82 0.08 150));
+  --color-success-50: light-dark(oklch(0.96 0.02 200), oklch(0.24 0.03 200));
+  --color-success-100: light-dark(oklch(0.92 0.04 200), oklch(0.28 0.04 200));
+  --color-success-500: light-dark(oklch(0.60 0.09 200), oklch(0.70 0.08 200));
+  --color-success-600: light-dark(oklch(0.50 0.08 200), oklch(0.76 0.07 200));
+  --color-success-700: light-dark(oklch(0.42 0.07 200), oklch(0.84 0.05 200));
 
-  --color-warning-50: light-dark(oklch(0.972 0.030 88), oklch(0.26 0.04 80));
-  --color-warning-100: light-dark(oklch(0.938 0.062 87), oklch(0.30 0.055 80));
-  --color-warning-500: light-dark(oklch(0.748 0.132 80), oklch(0.74 0.12 80));
-  --color-warning-600: light-dark(oklch(0.652 0.124 74), oklch(0.78 0.11 74));
-  --color-warning-700: light-dark(oklch(0.528 0.102 70), oklch(0.86 0.09 70));
+  --color-warning-50: light-dark(oklch(0.97 0.025 55), oklch(0.26 0.04 55));
+  --color-warning-100: light-dark(oklch(0.94 0.05 55), oklch(0.30 0.05 55));
+  --color-warning-500: light-dark(oklch(0.70 0.14 55), oklch(0.74 0.12 55));
+  --color-warning-600: light-dark(oklch(0.60 0.13 50), oklch(0.80 0.10 50));
+  --color-warning-700: light-dark(oklch(0.48 0.11 48), oklch(0.86 0.08 50));
 
   --color-danger-50: light-dark(oklch(0.962 0.02 30), oklch(0.24 0.04 30));
   --color-danger-100: light-dark(oklch(0.926 0.04 30), oklch(0.28 0.055 30));
@@ -106,44 +105,39 @@
   --color-danger-700: light-dark(oklch(0.42 0.14 30), oklch(0.82 0.1 30));
 
   /* --------------------------------------------------------------- surface */
-  --color-paper: light-dark(oklch(1 0 0), oklch(0.18 0.02 258));
-  --color-surface: light-dark(oklch(1 0 0), oklch(0.23 0.022 258));
-  --color-surface-sunken: light-dark(oklch(0.975 0.005 258), oklch(0.15 0.018 258));
-  --color-ink: light-dark(oklch(0.22 0.065 258), oklch(0.94 0.006 258));
-  --color-ink-muted: light-dark(oklch(0.49 0.04 257), oklch(0.76 0.02 258));
-  --color-ink-subtle: light-dark(oklch(0.52 0.04 257), oklch(0.68 0.025 258));
-  --color-hairline: light-dark(oklch(0.929 0.011 257), oklch(0.36 0.025 258));
-  --color-hairline-strong: light-dark(oklch(0.864 0.018 256), oklch(0.46 0.03 258));
-  /* Text (and muted text) on brand fills — always near-white in both themes.
-     Brand buttons use this rather than slate-50 so the slate ramp can invert for
-     dark mode without turning primary labels dark. Unchanged across themes. */
-  --color-on-primary: oklch(0.985 0.003 258);
-  /* The scrim behind a modal. Always dark, like --color-on-primary is always
-     light, and for the same reason: its job is fixed regardless of theme.
-     Modals used `ink` for this, which is the TEXT colour and therefore inverts
-     — so every dialog in the app sat under a near-white wash in dark mode
-     instead of a dim one. A scrim dims; it does not follow the theme. */
-  --color-scrim: oklch(0.14 0.02 258);
-  /* The wordmark's name: brand navy in light, the heading near-white in dark.
-     navy-700 inverts to a pale periwinkle in dark, which read as off-brand. */
-  --color-wordmark: light-dark(oklch(0.3 0.105 258), oklch(0.94 0.006 258));
-  --color-on-primary-muted: light-dark(oklch(0.93 0.008 258), oklch(0.9 0.008 258));
-  /* A decorative shape on a brand fill: one step lighter than --color-primary
-     in both themes. navy-500 did this job in light but inverts to a pale
-     periwinkle in dark, which out-shouts the text on the panel. */
-  --color-decor-on-primary: light-dark(oklch(0.5 0.14 258), oklch(0.52 0.11 260));
-  /* Solid brand fills for buttons / mode switch. Kept separate from the navy
-     ramp so the ramp can invert for tints and text while hover still darkens. */
-  --color-primary: light-dark(oklch(0.3 0.105 258), oklch(0.42 0.11 260));
-  --color-primary-hover: light-dark(oklch(0.25 0.085 258), oklch(0.36 0.1 261));
-  --color-primary-active: light-dark(oklch(0.21 0.07 259), oklch(0.31 0.09 262));
-  --color-accent-solid: light-dark(oklch(0.575 0.215 23.5), oklch(0.55 0.17 22));
-  --color-accent-solid-hover: light-dark(oklch(0.49 0.18 23), oklch(0.48 0.155 22));
-  --color-accent-solid-active: light-dark(oklch(0.4 0.145 23), oklch(0.41 0.135 22));
+  --color-paper: light-dark(oklch(0.985 0.012 95), oklch(0.20 0.025 158));
+  --color-surface: light-dark(oklch(0.995 0.006 95), oklch(0.25 0.028 158));
+  --color-surface-sunken: light-dark(oklch(0.965 0.016 98), oklch(0.17 0.022 158));
+  --color-ink: light-dark(oklch(0.27 0.04 158), oklch(0.96 0.012 95));
+  --color-ink-muted: light-dark(oklch(0.42 0.035 158), oklch(0.80 0.02 95));
+  --color-ink-subtle: light-dark(oklch(0.48 0.03 158), oklch(0.72 0.02 95));
+  --color-hairline: light-dark(oklch(0.90 0.012 95), oklch(0.36 0.02 158));
+  --color-hairline-strong: light-dark(oklch(0.84 0.016 95), oklch(0.46 0.025 158));
+  /* Text on the green fill. Always near-white, in both themes, so the green
+     ramp can invert for tints without turning a primary label dark. */
+  --color-on-primary: oklch(0.985 0.01 95);
+  /* Text on the gold fill. Gold is light, so this stays the seal green. */
+  --color-on-accent: oklch(0.30 0.055 158);
+  /* The scrim behind a modal. Always dark. Its job does not follow the theme. */
+  --color-scrim: oklch(0.14 0.02 158);
+  /* The wordmark. Seal green in light, near-white in dark. green-700 inverts
+     to a pale tint in dark, which is the wrong colour for the name. */
+  --color-wordmark: light-dark(oklch(0.348 0.072 158), oklch(0.96 0.012 95));
+  --color-on-primary-muted: oklch(0.90 0.025 95);
+  /* A shape sitting on the green fill, one step lighter than the fill. */
+  --color-decor-on-primary: light-dark(oklch(0.45 0.07 158), oklch(0.55 0.07 158));
+  /* Solid fills for buttons. Kept off the numbered ramps so a ramp can invert
+     for text and tints while a hover still darkens. */
+  --color-primary: light-dark(oklch(0.348 0.072 158), oklch(0.42 0.075 158));
+  --color-primary-hover: light-dark(oklch(0.30 0.065 158), oklch(0.38 0.07 158));
+  --color-primary-active: light-dark(oklch(0.26 0.055 158), oklch(0.34 0.06 158));
+  --color-accent-solid: light-dark(oklch(0.844 0.149 84), oklch(0.78 0.13 84));
+  --color-accent-solid-hover: light-dark(oklch(0.78 0.145 82), oklch(0.72 0.12 82));
+  --color-accent-solid-active: light-dark(oklch(0.70 0.12 78), oklch(0.66 0.11 78));
   --color-danger-solid: light-dark(oklch(0.5 0.17 30), oklch(0.56 0.16 30));
-  /* Soft navy tint for chips and selected states; the navy focus ring. */
-  --color-primary-soft: var(--color-navy-50);
-  --color-ring: var(--color-navy-600);
+  /* Soft green tint for a selected row; the focus ring. */
+  --color-primary-soft: var(--color-green-50);
+  --color-ring: var(--color-green-700);
   --color-danger-solid-hover: light-dark(oklch(0.42 0.14 30), oklch(0.5 0.14 30));
 
   /* ------------------------------------------------------------ type scale */
@@ -216,12 +210,12 @@
      over warm paper greys it out and reads cheap. Dark overrides live outside
      @theme: they add a hairline ring (different geometry), which light-dark()
      cannot express. */
-  --shadow-xs: 0 1px 2px oklch(0.221 0.039 258 / 0.05);
-  --shadow-sm: 0 1px 2px oklch(0.221 0.039 258 / 0.05), 0 2px 4px -1px oklch(0.221 0.039 258 / 0.04);
-  --shadow-md: 0 2px 4px -1px oklch(0.221 0.039 258 / 0.05), 0 6px 12px -3px oklch(0.221 0.039 258 / 0.06);
-  --shadow-lg: 0 4px 8px -2px oklch(0.221 0.039 258 / 0.05), 0 14px 26px -6px oklch(0.221 0.039 258 / 0.08);
-  --shadow-xl: 0 8px 16px -4px oklch(0.221 0.039 258 / 0.06), 0 28px 48px -12px oklch(0.221 0.039 258 / 0.10);
-  --shadow-inset-hairline: inset 0 0 0 1px oklch(0.221 0.039 258 / 0.06);
+  --shadow-xs: 0 1px 2px oklch(0.221 0.039 158 / 0.05);
+  --shadow-sm: 0 1px 2px oklch(0.221 0.039 158 / 0.05), 0 2px 4px -1px oklch(0.221 0.039 158 / 0.04);
+  --shadow-md: 0 2px 4px -1px oklch(0.221 0.039 158 / 0.05), 0 6px 12px -3px oklch(0.221 0.039 158 / 0.06);
+  --shadow-lg: 0 4px 8px -2px oklch(0.221 0.039 158 / 0.05), 0 14px 26px -6px oklch(0.221 0.039 158 / 0.08);
+  --shadow-xl: 0 8px 16px -4px oklch(0.221 0.039 158 / 0.06), 0 28px 48px -12px oklch(0.221 0.039 158 / 0.10);
+  --shadow-inset-hairline: inset 0 0 0 1px oklch(0.221 0.039 158 / 0.06);
 
   /* ----------------------------------------------------------------- easing */
   --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
@@ -285,12 +279,12 @@
    elevation under a light palette. */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme='light']) {
-    --shadow-xs: 0 0 0 1px oklch(0.94 0.006 258 / 0.08);
-    --shadow-sm: 0 0 0 1px oklch(0.94 0.006 258 / 0.1), 0 4px 12px oklch(0 0 0 / 0.45);
-    --shadow-md: 0 0 0 1px oklch(0.94 0.006 258 / 0.1), 0 8px 20px oklch(0 0 0 / 0.5);
-    --shadow-lg: 0 0 0 1px oklch(0.94 0.006 258 / 0.12), 0 14px 28px oklch(0 0 0 / 0.55);
-    --shadow-xl: 0 0 0 1px oklch(0.94 0.006 258 / 0.14), 0 24px 48px oklch(0 0 0 / 0.6);
-    --shadow-inset-hairline: inset 0 0 0 1px oklch(0.94 0.006 258 / 0.1);
+    --shadow-xs: 0 0 0 1px oklch(0.94 0.006 158 / 0.08);
+    --shadow-sm: 0 0 0 1px oklch(0.94 0.006 158 / 0.1), 0 4px 12px oklch(0 0 0 / 0.45);
+    --shadow-md: 0 0 0 1px oklch(0.94 0.006 158 / 0.1), 0 8px 20px oklch(0 0 0 / 0.5);
+    --shadow-lg: 0 0 0 1px oklch(0.94 0.006 158 / 0.12), 0 14px 28px oklch(0 0 0 / 0.55);
+    --shadow-xl: 0 0 0 1px oklch(0.94 0.006 158 / 0.14), 0 24px 48px oklch(0 0 0 / 0.6);
+    --shadow-inset-hairline: inset 0 0 0 1px oklch(0.94 0.006 158 / 0.1);
   }
 }
 
@@ -302,22 +296,22 @@
  */
 :root[data-theme='light'] {
   color-scheme: light;
-  --shadow-xs: 0 1px 2px oklch(0.221 0.039 258 / 0.05);
-  --shadow-sm: 0 1px 2px oklch(0.221 0.039 258 / 0.05), 0 2px 4px -1px oklch(0.221 0.039 258 / 0.04);
-  --shadow-md: 0 2px 4px -1px oklch(0.221 0.039 258 / 0.05), 0 6px 12px -3px oklch(0.221 0.039 258 / 0.06);
-  --shadow-lg: 0 4px 8px -2px oklch(0.221 0.039 258 / 0.05), 0 14px 26px -6px oklch(0.221 0.039 258 / 0.08);
-  --shadow-xl: 0 8px 16px -4px oklch(0.221 0.039 258 / 0.06), 0 28px 48px -12px oklch(0.221 0.039 258 / 0.10);
-  --shadow-inset-hairline: inset 0 0 0 1px oklch(0.221 0.039 258 / 0.06);
+  --shadow-xs: 0 1px 2px oklch(0.221 0.039 158 / 0.05);
+  --shadow-sm: 0 1px 2px oklch(0.221 0.039 158 / 0.05), 0 2px 4px -1px oklch(0.221 0.039 158 / 0.04);
+  --shadow-md: 0 2px 4px -1px oklch(0.221 0.039 158 / 0.05), 0 6px 12px -3px oklch(0.221 0.039 158 / 0.06);
+  --shadow-lg: 0 4px 8px -2px oklch(0.221 0.039 158 / 0.05), 0 14px 26px -6px oklch(0.221 0.039 158 / 0.08);
+  --shadow-xl: 0 8px 16px -4px oklch(0.221 0.039 158 / 0.06), 0 28px 48px -12px oklch(0.221 0.039 158 / 0.10);
+  --shadow-inset-hairline: inset 0 0 0 1px oklch(0.221 0.039 158 / 0.06);
 }
 
 :root[data-theme='dark'] {
   color-scheme: dark;
-  --shadow-xs: 0 0 0 1px oklch(0.94 0.006 258 / 0.08);
-  --shadow-sm: 0 0 0 1px oklch(0.94 0.006 258 / 0.1), 0 4px 12px oklch(0 0 0 / 0.45);
-  --shadow-md: 0 0 0 1px oklch(0.94 0.006 258 / 0.1), 0 8px 20px oklch(0 0 0 / 0.5);
-  --shadow-lg: 0 0 0 1px oklch(0.94 0.006 258 / 0.12), 0 14px 28px oklch(0 0 0 / 0.55);
-  --shadow-xl: 0 0 0 1px oklch(0.94 0.006 258 / 0.14), 0 24px 48px oklch(0 0 0 / 0.6);
-  --shadow-inset-hairline: inset 0 0 0 1px oklch(0.94 0.006 258 / 0.1);
+  --shadow-xs: 0 0 0 1px oklch(0.94 0.006 158 / 0.08);
+  --shadow-sm: 0 0 0 1px oklch(0.94 0.006 158 / 0.1), 0 4px 12px oklch(0 0 0 / 0.45);
+  --shadow-md: 0 0 0 1px oklch(0.94 0.006 158 / 0.1), 0 8px 20px oklch(0 0 0 / 0.5);
+  --shadow-lg: 0 0 0 1px oklch(0.94 0.006 158 / 0.12), 0 14px 28px oklch(0 0 0 / 0.55);
+  --shadow-xl: 0 0 0 1px oklch(0.94 0.006 158 / 0.14), 0 24px 48px oklch(0 0 0 / 0.6);
+  --shadow-inset-hairline: inset 0 0 0 1px oklch(0.94 0.006 158 / 0.1);
 }
 
 /*
@@ -327,24 +321,24 @@
  */
 [data-theme-specimen='light'] {
   color-scheme: light;
-  --shadow-xs: 0 1px 2px oklch(0.221 0.039 258 / 0.05);
-  --shadow-sm: 0 1px 2px oklch(0.221 0.039 258 / 0.05), 0 2px 4px -1px oklch(0.221 0.039 258 / 0.04);
-  --shadow-md: 0 2px 4px -1px oklch(0.221 0.039 258 / 0.05), 0 6px 12px -3px oklch(0.221 0.039 258 / 0.06);
-  --shadow-lg: 0 4px 8px -2px oklch(0.221 0.039 258 / 0.05), 0 14px 26px -6px oklch(0.221 0.039 258 / 0.08);
-  --shadow-xl: 0 8px 16px -4px oklch(0.221 0.039 258 / 0.06), 0 28px 48px -12px oklch(0.221 0.039 258 / 0.10);
-  --shadow-inset-hairline: inset 0 0 0 1px oklch(0.221 0.039 258 / 0.06);
+  --shadow-xs: 0 1px 2px oklch(0.221 0.039 158 / 0.05);
+  --shadow-sm: 0 1px 2px oklch(0.221 0.039 158 / 0.05), 0 2px 4px -1px oklch(0.221 0.039 158 / 0.04);
+  --shadow-md: 0 2px 4px -1px oklch(0.221 0.039 158 / 0.05), 0 6px 12px -3px oklch(0.221 0.039 158 / 0.06);
+  --shadow-lg: 0 4px 8px -2px oklch(0.221 0.039 158 / 0.05), 0 14px 26px -6px oklch(0.221 0.039 158 / 0.08);
+  --shadow-xl: 0 8px 16px -4px oklch(0.221 0.039 158 / 0.06), 0 28px 48px -12px oklch(0.221 0.039 158 / 0.10);
+  --shadow-inset-hairline: inset 0 0 0 1px oklch(0.221 0.039 158 / 0.06);
   background-color: var(--color-paper);
   color: var(--color-ink);
 }
 
 [data-theme-specimen='dark'] {
   color-scheme: dark;
-  --shadow-xs: 0 0 0 1px oklch(0.94 0.006 258 / 0.08);
-  --shadow-sm: 0 0 0 1px oklch(0.94 0.006 258 / 0.1), 0 4px 12px oklch(0 0 0 / 0.45);
-  --shadow-md: 0 0 0 1px oklch(0.94 0.006 258 / 0.1), 0 8px 20px oklch(0 0 0 / 0.5);
-  --shadow-lg: 0 0 0 1px oklch(0.94 0.006 258 / 0.12), 0 14px 28px oklch(0 0 0 / 0.55);
-  --shadow-xl: 0 0 0 1px oklch(0.94 0.006 258 / 0.14), 0 24px 48px oklch(0 0 0 / 0.6);
-  --shadow-inset-hairline: inset 0 0 0 1px oklch(0.94 0.006 258 / 0.1);
+  --shadow-xs: 0 0 0 1px oklch(0.94 0.006 158 / 0.08);
+  --shadow-sm: 0 0 0 1px oklch(0.94 0.006 158 / 0.1), 0 4px 12px oklch(0 0 0 / 0.45);
+  --shadow-md: 0 0 0 1px oklch(0.94 0.006 158 / 0.1), 0 8px 20px oklch(0 0 0 / 0.5);
+  --shadow-lg: 0 0 0 1px oklch(0.94 0.006 158 / 0.12), 0 14px 28px oklch(0 0 0 / 0.55);
+  --shadow-xl: 0 0 0 1px oklch(0.94 0.006 158 / 0.14), 0 24px 48px oklch(0 0 0 / 0.6);
+  --shadow-inset-hairline: inset 0 0 0 1px oklch(0.94 0.006 158 / 0.1);
   background-color: var(--color-paper);
   color: var(--color-ink);
 }

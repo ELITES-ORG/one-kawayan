@@ -22,19 +22,22 @@ not to do. Tokens are in `src/styles/theme.css`. See
 
 ## Identity
 
-**Type.** Fraunces for headings; Plus Jakarta Sans for UI and reading text
-([ADR 0013](../docs/decisions/0013-navy-and-red-identity.md),
+**Type.** Plus Jakarta Sans for everything a person reads
+([ADR 0016](../docs/decisions/0016-forest-green-and-gold.md),
 [ADR 0014](../docs/decisions/0014-self-hosted-variable-fonts.md)).
-Two families is the budget. `.u-display` is Fraunces at weight 600 with the
-optical size raised.
+One family. `.u-display` is that face at weight 700. Page titles are 700,
+section titles 600, body 400, supporting lines 500.
 
 Size is chosen at the call site: display `text-5xl` / `text-6xl` · h1
 `text-4xl` · h2 `text-3xl` · h3 `text-xl` / `text-2xl` · body `text-md` · UI
-`text-base` · caption `text-xs`.
+`text-base` · caption `text-xs`. Body copy and form fields stay at `text-md`
+(16px).
 
-**Palette — navy and red.** Neutrals are the cool `slate` ramp. `navy` step 700
-is the brand navy. `red` is the accent. These replace Tailwind's own ramps of
-the same names.
+**Palette — forest green and gold.** Sampled from the municipal seal.
+Neutrals are the warm `slate` ramp. `green` step 700 is the seal green
+(`#0F452B`). `gold` step 500 is the seal gold (`#FAC247`) and is a fill only:
+white and cream both fail on it, so a gold fill uses `text-on-accent`. These
+replace Tailwind's own ramps of the same names.
 
 ---
 
@@ -42,8 +45,8 @@ the same names.
 
 **Colour**
 
-- `red-500` is for decoration and large text. Filled buttons and badges use
-  `accent-solid`. Errors use `danger`, which is a different red on purpose.
+- `gold-500` is a fill, not text. Filled gold buttons use `accent-solid` with
+  `text-on-accent`. Errors use `danger`, which is a separate red on purpose.
 - Status is never colour alone. Pair it with an icon or a word.
 - Text on white uses steps 600–700.
 
@@ -69,9 +72,10 @@ the same names.
 
 **Components**
 
-- `Button` variants are roles. `primary` is navy. `accent` is the one call to
-  action a screen exists for. `secondary` is a navy outline. `danger` destroys.
-  `inverse` sits on a navy surface. One primary action visible in a view.
+- `Button` variants are roles. `primary` is the seal green. `accent` is the
+  gold fill with a dark label, for the one call to action a screen exists for.
+  `secondary` is a green outline. `danger` destroys. `inverse` sits on a green
+  surface. One primary action visible in a view.
 - Every size is 44px on a touch screen. `sm` drops to 36px only with
   `pointer-fine`, so a phone in landscape stays 44px.
 - A button that navigates is `ButtonLink`, not a `<button>` inside an `<a>`.

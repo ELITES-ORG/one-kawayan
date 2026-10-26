@@ -1,6 +1,6 @@
 # 0014. Self-hosted variable fonts
 
-- **Status:** Accepted
+- **Status:** Accepted. Which families load is amended by [0016](./0016-forest-green-and-gold.md): Plus Jakarta Sans only.
 - **Date:** 2026-10-26
 
 ## Context

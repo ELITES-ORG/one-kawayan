@@ -1,6 +1,4 @@
-/* Variable fonts, weight axis only, self-hosted. Plus Jakarta Sans for UI and
-   body, Fraunces for headings (ADR 0013, ADR 0014). */
-@import '@fontsource-variable/fraunces/opsz.css';
+/* Plus Jakarta Sans, weight axis only, self-hosted (ADR 0014, ADR 0016). */
 @import '@fontsource-variable/plus-jakarta-sans/wght.css';
 
 @import 'tailwindcss';

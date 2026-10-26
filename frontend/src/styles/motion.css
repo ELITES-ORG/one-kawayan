@@ -321,6 +321,44 @@
     transform: scale(0.978);
   }
 
+  /* Icon parts. Each part moves on its own, once, when the icon is marked
+     live (a selection, not a loop). Transform only, so the icon stays visible
+     and the work stays on the compositor. */
+  .mark .mark-part {
+    transform-box: fill-box;
+    transform-origin: center;
+  }
+
+  .mark.is-live .mark-a {
+    animation: mark-from-above var(--duration-base) var(--ease-out-expo) both;
+    animation-delay: var(--mark-delay, 0ms);
+  }
+
+  .mark.is-live .mark-b {
+    animation: mark-from-scale var(--duration-base) var(--ease-out-expo) both;
+    animation-delay: calc(var(--mark-delay, 0ms) + 50ms);
+  }
+
+  .mark.is-live .mark-c {
+    animation: mark-from-below var(--duration-base) var(--ease-out-expo) both;
+    animation-delay: calc(var(--mark-delay, 0ms) + 90ms);
+  }
+
+  @keyframes mark-from-above {
+    from { transform: translate3d(0, -3px, 0); }
+    to { transform: none; }
+  }
+
+  @keyframes mark-from-scale {
+    from { transform: scale(0.72); }
+    to { transform: none; }
+  }
+
+  @keyframes mark-from-below {
+    from { transform: translate3d(0, 3px, 0); }
+    to { transform: none; }
+  }
+
   /* Link underline that grows from the left instead of appearing all at once. */
   .link-underline {
     position: relative;
@@ -460,7 +498,7 @@
   }
 
   .bk-glitch-layer-a {
-    background-color: var(--color-red-500);
+    background-color: var(--color-gold-500);
   }
 
   .bk-glitch-layer-b {

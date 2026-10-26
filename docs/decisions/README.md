@@ -49,6 +49,7 @@ Number sequentially. Never renumber.
 | [0010](./0010-main-is-staging-production-is-a-branch.md) | `main` is staging; production is a branch | Accepted |
 | [0011](./0011-only-reyxdz-merges-and-releases.md) | Only reyxdz merges and releases | Accepted |
 | [0012](./0012-pull-requests-merge-by-squash-only.md) | Pull requests merge by squash only | Accepted |
-| [0013](./0013-navy-and-red-identity.md) | Navy and red, Fraunces for headings | Accepted |
+| [0013](./0013-navy-and-red-identity.md) | Navy and red, Fraunces for headings | Superseded by 0016 |
 | [0014](./0014-self-hosted-variable-fonts.md) | Self-hosted variable fonts | Accepted |
 | [0015](./0015-one-radius-for-every-box.md) | One radius for every box | Accepted |
+| [0016](./0016-forest-green-and-gold.md) | Forest green and gold, one typeface | Accepted |

@@ -1,6 +1,6 @@
 # 0013. Navy and red, Fraunces for headings
 
-- **Status:** Accepted
+- **Status:** Superseded by [0016](./0016-forest-green-and-gold.md)
 - **Date:** 2026-10-26
 
 ## Context

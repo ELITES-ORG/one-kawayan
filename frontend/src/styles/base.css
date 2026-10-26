@@ -7,8 +7,6 @@
 @layer base {
   :root {
     color-scheme: light dark;
-    /* Opsz is Fraunces' optical-size axis. Left at a text value here and
-       raised in the .u-display and .u-serif utilities. */
     font-variant-ligatures: common-ligatures contextual;
     -webkit-tap-highlight-color: transparent;
   }
@@ -28,7 +26,7 @@
     background-color: var(--color-paper);
     color: var(--color-ink);
     font-family: var(--font-sans);
-    font-size: var(--text-base);
+    font-size: var(--text-md);
     line-height: 1.6;
     font-weight: 400;
     -webkit-font-smoothing: antialiased;
@@ -43,6 +41,10 @@
     font-weight: 600;
     color: var(--color-ink);
     text-wrap: balance;
+  }
+
+  h1, h2 {
+    font-weight: 700;
   }
 
   p {
@@ -63,7 +65,7 @@
 
   ::selection {
     background-color: var(--color-primary-soft);
-    color: var(--color-navy-900);
+    color: var(--color-green-900);
   }
 
   hr {
@@ -148,32 +150,26 @@
 }
 
 @layer components {
-  /* Display type: the Fraunces heading face with its optical-size axis pushed
-     above what the rendered size would select, which sharpens stroke contrast
-     and tightens the serifs. 59 call sites use this, so it stays the single
-     place that decides what "display" means. */
+  /* Display type. Same family as the body, heavier, so a title is a change
+     of weight and size and not a change of voice. */
   .u-display {
     font-family: var(--font-display);
-    font-weight: 600;
-    font-variation-settings: 'opsz' 48;
+    font-weight: 700;
   }
 
-  /* The serif, named explicitly, for the landing and sign-in headlines. Kept
-     separate from .u-display so those stay serif if headings ever change. */
   .u-serif {
     font-family: var(--font-serif);
-    font-weight: 600;
-    font-variation-settings: 'opsz' 48;
+    font-weight: 700;
   }
 
   /* Eyebrow / kicker label above a heading. */
   .u-eyebrow {
     font-family: var(--font-sans);
-    font-size: var(--text-2xs);
-    font-weight: 700;
-    letter-spacing: 0.14em;
+    font-size: var(--text-xs);
+    font-weight: 600;
+    letter-spacing: 0.06em;
     text-transform: uppercase;
-    color: var(--color-navy-700);
+    color: var(--color-green-700);
   }
 
   /* Hairline rule that fades out — used instead of a hard full-width border
