@@ -4,9 +4,9 @@ import { buttonStyles } from '@/components/ui/button-styles';
 import { Logo } from '@/components/icons/Logo';
 import { Mark, type MarkName } from '@/components/icons/marks';
 import { cn } from '@/lib/cn';
+import { schemeFromPreference, type Scheme } from './scheme';
 
 type Tab = 'home' | 'services' | 'news' | 'report' | 'emergency';
-type Scheme = 'light' | 'dark';
 
 const TABS: { id: Tab; label: string; mark: MarkName }[] = [
   { id: 'home', label: 'Home', mark: 'home' },
@@ -106,7 +106,9 @@ const TOPICS = ['Road', 'Waste', 'Street light', 'Water', 'Other'] as const;
 
 export function HomePage() {
   const [tab, setTab] = useState<Tab>('home');
-  const [scheme, setScheme] = useState<Scheme>('light');
+  const [scheme, setScheme] = useState<Scheme>(() =>
+    schemeFromPreference(window.matchMedia('(prefers-color-scheme: dark)').matches),
+  );
   const [serviceId, setServiceId] = useState('documents');
 
   function applyScheme(next: Scheme) {
