@@ -357,7 +357,7 @@ function ServicesPanel({
               >
                 <span className="min-w-0 flex-1">
                   <span className="block text-md font-semibold">{service.title}</span>
-                  <span className="block text-base text-ink-muted">{service.summary}</span>
+                  <span className="block text-md text-ink-muted">{service.summary}</span>
                 </span>
               </button>
               {isOpen && <p className="anim-drop-in px-3 pb-4 text-md text-ink">{service.body}</p>}
@@ -415,7 +415,7 @@ function NewsPanel() {
         <dl className="flex flex-col gap-4">
           {AWARDS.map(([award, school]) => (
             <div key={award}>
-              <dt className="text-base font-semibold text-ink-muted">{award}</dt>
+              <dt className="text-md font-semibold text-ink-muted">{award}</dt>
               <dd className="mt-0.5 text-md font-semibold">{school}</dd>
             </div>
           ))}
