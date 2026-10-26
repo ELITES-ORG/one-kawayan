@@ -9,4 +9,8 @@ describe('buttonStyles', () => {
   it('keeps rounded-full off a button', () => {
     expect(buttonStyles()).not.toContain('rounded-full');
   });
+
+  it('puts a dark label on the gold fill', () => {
+    expect(buttonStyles({ variant: 'accent' })).toContain('text-on-accent');
+  });
 });
