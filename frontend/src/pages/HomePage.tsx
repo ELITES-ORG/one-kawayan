@@ -288,7 +288,7 @@ function HomePanel({
 
       <div className="mt-4 grid grid-cols-1 items-start gap-5 px-(--gutter) lg:w-fit lg:grid-cols-[24rem_22rem] lg:gap-8">
         {visible.length === 0 ? (
-          <p className="text-md text-ink-muted">Nothing matches that.</p>
+          <p className="text-md text-ink-muted" role="status">Nothing matches that.</p>
         ) : (
           <ul className="grid grid-cols-4 gap-x-1 gap-y-3 max-[21rem]:gap-x-0">
             {visible.map((action, index) => (
