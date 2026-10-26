@@ -147,7 +147,7 @@ export function HomePage() {
                 type="button"
                 className={cn(
                   'interactive-press flex min-h-11 items-center gap-3 rounded-sm px-3 text-left text-md',
-                  selected ? 'bg-primary-soft font-bold text-primary' : 'font-medium text-ink-muted',
+                  selected ? 'bg-primary-soft font-bold text-green-700' : 'font-medium text-ink-muted',
                 )}
                 aria-current={selected ? 'page' : undefined}
                 onClick={() => setTab(item.id)}
@@ -215,7 +215,7 @@ export function HomePage() {
                 type="button"
                 className={cn(
                   'interactive-press flex min-h-14 min-w-0 flex-1 flex-col items-center justify-center gap-0.5 text-2xs leading-none tracking-normal',
-                  selected ? 'font-bold text-primary' : 'font-medium text-ink-muted',
+                  selected ? 'font-bold text-green-700' : 'font-medium text-ink-muted',
                 )}
                 aria-current={selected ? 'page' : undefined}
                 onClick={() => setTab(item.id)}
@@ -298,7 +298,7 @@ function HomePanel({
                   className="interactive-press flex w-full min-w-0 flex-col items-center gap-1.5 text-center"
                   onClick={() => onOpen(action.go, action.serviceId)}
                 >
-                  <span className="flex size-12 items-center justify-center rounded-sm bg-green-100 text-primary">
+                  <span className="flex size-12 items-center justify-center rounded-sm bg-green-100 text-green-700">
                     <Mark name={action.mark} live delay={index * 40} />
                   </span>
                   <span className="w-full text-xs font-semibold">{action.label}</span>
