@@ -4,6 +4,7 @@ import { buttonStyles } from '@/components/ui/button-styles';
 import { Logo } from '@/components/icons/Logo';
 import { Mark, type MarkName } from '@/components/icons/marks';
 import { cn } from '@/lib/cn';
+import { reportFieldError } from './report-error';
 import { schemeFromPreference, type Scheme } from './scheme';
 
 type Tab = 'home' | 'services' | 'news' | 'report' | 'emergency';
@@ -449,9 +450,10 @@ function ReportPanel() {
 
   function onSubmit(event: FormEvent) {
     event.preventDefault();
-    if (place.trim() === '' || detail.trim() === '') {
+    const problem = reportFieldError(place, detail);
+    if (problem !== '') {
       setSaved(false);
-      setError('Add the place and what happened.');
+      setError(problem);
       return;
     }
     setError('');
