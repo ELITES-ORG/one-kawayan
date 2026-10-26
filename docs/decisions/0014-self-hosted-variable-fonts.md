@@ -11,9 +11,10 @@ handshake is a large part of the cost of the first paint. The two families in
 
 ## Decision
 
-Fraunces and Plus Jakarta Sans are self-hosted through Fontsource, variable,
-weight axis only (Fraunces also loads its optical-size axis). They are imported
-from `frontend/src/index.css`. No other family is added.
+Plus Jakarta Sans is self-hosted through Fontsource, variable, weight axis
+only. It is imported from `frontend/src/index.css`. No other family is added.
+Fraunces, from the original decision, is no longer imported
+([ADR 0016](./0016-forest-green-and-gold.md)).
 
 ## Alternatives considered
 

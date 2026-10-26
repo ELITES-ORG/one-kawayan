@@ -134,7 +134,7 @@ export function HomePage() {
         <div className="flex items-center gap-3">
           <Logo />
           <div className="min-w-0">
-            <p className="text-md font-bold">OneKawayan</p>
+            <p className="text-md font-bold">One Kawayan</p>
             <p className="text-sm text-ink-muted">Biliran</p>
           </div>
         </div>
@@ -167,7 +167,7 @@ export function HomePage() {
         {tab !== 'home' && (
           <header className="sticky top-0 z-20 border-b border-hairline bg-paper">
             <div className="flex items-center gap-3 px-(--gutter) py-2.5">
-              <Logo label="OneKawayan" className="size-9 md:hidden" />
+              <Logo label="One Kawayan" className="size-9 md:hidden" />
               <h1 className="min-w-0 flex-1 text-md">{PAGE_TITLE[tab]}</h1>
               <ThemeButton
                 scheme={scheme}
@@ -281,7 +281,7 @@ function HomePanel({
             <span className="block">Maayong Adlaw,</span>
             <span className="block">Kawayanon!</span>
           </h1>
-          <Logo label="OneKawayan" className="size-11" />
+          <Logo label="One Kawayan" className="size-11" />
         </div>
         <div className="absolute inset-x-0 bottom-0 h-1 bg-gold-500" />
       </div>
@@ -410,32 +410,32 @@ function NewsPanel() {
       </section>
 
       <div className="flex flex-col gap-10">
-      <section className="flex flex-col gap-4">
-        <h2 className="text-lg">Special awards</h2>
-        <dl className="flex flex-col gap-4">
-          {AWARDS.map(([award, school]) => (
-            <div key={award}>
-              <dt className="text-md font-semibold text-ink-muted">{award}</dt>
-              <dd className="mt-0.5 text-md font-semibold">{school}</dd>
-            </div>
-          ))}
-        </dl>
-      </section>
+        <section className="flex flex-col gap-4">
+          <h2 className="text-lg">Special awards</h2>
+          <dl className="flex flex-col gap-4">
+            {AWARDS.map(([award, school]) => (
+              <div key={award}>
+                <dt className="text-md font-semibold text-ink-muted">{award}</dt>
+                <dd className="mt-0.5 text-md font-semibold">{school}</dd>
+              </div>
+            ))}
+          </dl>
+        </section>
 
-      <section className="flex flex-col gap-3">
-        <h2 className="text-lg">Grand raffle</h2>
-        <p className="text-md">
-          Tickets were ₱100, with no minimum and no maximum. Selling ran from 15 to 22 October
-          2026, until 4:00 PM, at the Kawayan Municipal Port.
-        </p>
-        <p className="text-md">
-          The draw was 22 October 2026, 7:00 PM, at the Kawayan Food Park, Municipal Port. It was
-          also streamed on the official Kawayan PIO Facebook page.
-        </p>
-        <p className="text-md">
-          A winner claims with the original ticket and a proof of identity.
-        </p>
-      </section>
+        <section className="flex flex-col gap-3">
+          <h2 className="text-lg">Grand raffle</h2>
+          <p className="text-md">
+            Tickets were ₱100, with no minimum and no maximum. Selling ran from 15 to 22 October
+            2026, until 4:00 PM, at the Kawayan Municipal Port.
+          </p>
+          <p className="text-md">
+            The draw was 22 October 2026, 7:00 PM, at the Kawayan Food Park, Municipal Port. It was
+            also streamed on the official Kawayan PIO Facebook page.
+          </p>
+          <p className="text-md">
+            A winner claims with the original ticket and a proof of identity.
+          </p>
+        </section>
       </div>
     </div>
   );
