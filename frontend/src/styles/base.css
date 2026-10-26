@@ -27,7 +27,8 @@
     color: var(--color-ink);
     font-family: var(--font-sans);
     font-size: var(--text-md);
-    line-height: 1.6;
+    line-height: var(--text-md--line-height);
+    letter-spacing: var(--text-md--letter-spacing);
     font-weight: 400;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;

@@ -134,7 +134,7 @@ export function HomePage() {
         <div className="flex items-center gap-3">
           <Logo />
           <div className="min-w-0">
-            <p className="text-md leading-tight font-bold">OneKawayan</p>
+            <p className="text-md font-bold">OneKawayan</p>
             <p className="text-sm text-ink-muted">Biliran</p>
           </div>
         </div>
@@ -214,7 +214,7 @@ export function HomePage() {
                 key={item.id}
                 type="button"
                 className={cn(
-                  'interactive-press flex min-h-14 min-w-0 flex-1 flex-col items-center justify-center gap-0.5 text-2xs leading-none tracking-normal',
+                  'interactive-press flex min-h-14 min-w-0 flex-1 flex-col items-center justify-center gap-0.5 text-2xs',
                   selected ? 'font-bold text-green-700' : 'font-medium text-ink-muted',
                 )}
                 aria-current={selected ? 'page' : undefined}
