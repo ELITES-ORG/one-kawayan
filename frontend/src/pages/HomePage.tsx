@@ -267,13 +267,13 @@ function HomePanel({
               value={query}
               onChange={(event) => setQuery(event.target.value)}
               placeholder='Search "documents"'
-              className="h-10 w-full rounded-sm border border-hairline bg-surface pr-3 pl-10 text-md text-ink"
+              className="h-12 w-full rounded-sm border border-hairline bg-surface pr-3 pl-10 text-md text-ink"
             />
           </label>
           <ThemeButton
             scheme={scheme}
             onToggle={onToggle}
-            className="size-10 text-on-primary hover:bg-primary-hover md:hidden"
+            className="text-on-primary hover:bg-primary-hover md:hidden"
           />
         </div>
         <div className="mt-3 flex items-center justify-between gap-3">
