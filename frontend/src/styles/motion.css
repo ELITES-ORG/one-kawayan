@@ -155,6 +155,11 @@
     to { opacity: 1; }
   }
 
+  /* Fullscreen splash leaving upward. A large surface may run past 200ms. */
+  @keyframes bk-splash-leave {
+    to { transform: translate3d(0, -100%, 0); }
+  }
+
   /* ------------------------------------------------------------- utilities */
   .anim-fade-in {
     animation: bk-fade-in var(--duration-slow) var(--ease-out-quart) both;
@@ -177,6 +182,23 @@
 
   .anim-slide-in-right {
     animation: bk-slide-in-right var(--duration-slow) var(--ease-out-expo) both;
+  }
+
+  /* Opening splash: the name arrives letter by letter. The description does not. */
+  .splash-name > span {
+    display: inline-block;
+    animation: bk-rise-in var(--duration-base) var(--ease-out-expo) both;
+    animation-delay: calc(var(--splash-i, 0) * 45ms);
+  }
+
+  .splash-leave {
+    animation: bk-splash-leave var(--duration-slower) var(--ease-in-out-soft) forwards;
+  }
+
+  /* The seal waits until the last letter has landed, then fades in above it. */
+  .splash-logo {
+    animation: bk-fade-in var(--duration-base) var(--ease-out-quart) both;
+    animation-delay: var(--splash-logo-delay, 0ms);
   }
 
   /* Stagger: set --i on each child to sequence a list entrance.
@@ -619,6 +641,11 @@
     .map-island,
     .map-pin {
       animation: bk-fade-in 0.01ms both;
+    }
+
+    .splash-name > span,
+    .splash-logo {
+      animation-delay: 0ms;
     }
 
     .map-pin-pulse {
