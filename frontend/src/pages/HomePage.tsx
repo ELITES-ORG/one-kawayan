@@ -6,6 +6,7 @@ import { NEWS, type NewsArticle } from '@/data/news';
 import { cn } from '@/lib/cn';
 import { promptInstall, useInstallState } from '@/pages/install';
 import { initialScheme, type Scheme } from '@/pages/scheme';
+import { syncThemeBar } from '@/pages/theme-bar';
 
 type Tab = 'home' | 'services' | 'news' | 'hotlines';
 
@@ -154,6 +155,7 @@ export function HomePage() {
   function applyScheme(next: Scheme) {
     setScheme(next);
     document.documentElement.dataset.theme = next;
+    syncThemeBar();
   }
 
   return (
