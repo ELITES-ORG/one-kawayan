@@ -138,7 +138,7 @@ const HOTLINES: { name: string; description: string; number: string }[] = [
 ];
 
 const card = 'rounded-[16px] bg-surface shadow-[0_4px_12px_oklch(0.2_0.04_158/0.06)]';
-const iconWell = 'flex size-10 items-center justify-center rounded-[12px] bg-primary/12 text-primary';
+const iconWell = 'flex size-10 items-center justify-center rounded-[12px] bg-green-100 text-green-700';
 
 export function HomePage() {
   const [tab, setTab] = useState<Tab>('home');
@@ -233,7 +233,7 @@ function HomeView({
   if (history) {
     return (
       <div className="px-6 pt-[max(1.5rem,env(safe-area-inset-top))] pb-[calc(8rem+env(safe-area-inset-bottom))]">
-        <button type="button" className="text-[14px] font-semibold text-primary" onClick={() => setHistory(false)}>
+        <button type="button" className="text-[14px] font-semibold text-green-700" onClick={() => setHistory(false)}>
           Back
         </button>
         <h1 className="mt-4 text-[28px] leading-[1.2] font-extrabold tracking-[-0.02em]">History of Kawayan</h1>
@@ -244,13 +244,13 @@ function HomeView({
           {HISTORY.map((entry, index) => (
             <li key={entry.title} className="flex gap-4">
               <div className="flex w-8 shrink-0 flex-col items-center">
-                <span className="flex size-8 items-center justify-center rounded-full bg-primary/12 text-primary">
+                <span className="flex size-8 items-center justify-center rounded-full bg-green-100 text-green-700">
                   <Glyph name={entry.icon} className="size-4" />
                 </span>
-                {index < HISTORY.length - 1 && <span className="mt-1 w-0.5 flex-1 bg-primary/15" />}
+                {index < HISTORY.length - 1 && <span className="mt-1 w-0.5 flex-1 bg-green-700/30" />}
               </div>
               <article className={cn(card, 'mb-6 min-w-0 flex-1 p-[18px]')}>
-                <p className="inline-flex rounded-[8px] bg-primary/12 px-2.5 py-1 text-[12px] font-bold tracking-[0.02em] text-primary">
+                <p className="inline-flex rounded-[8px] bg-green-100 px-2.5 py-1 text-[12px] font-bold tracking-[0.02em] text-green-700">
                   {entry.era}
                 </p>
                 <h2 className="mt-2.5 text-[16px] font-bold">{entry.title}</h2>
@@ -279,7 +279,7 @@ function HomeView({
             </IconButton>
           </div>
           <div className="mt-7 max-w-[52%] pb-8">
-            <p className="inline-flex rounded-full bg-surface/90 px-3.5 py-2 text-[14px] font-extrabold text-primary">
+            <p className="inline-flex rounded-full border border-hairline bg-surface px-3.5 py-2 text-[14px] font-extrabold text-green-700">
               Maayong Adlaw!
             </p>
             <h1 className="mt-3 text-[24px] leading-[1.02] font-extrabold tracking-[-0.03em] text-ink min-[380px]:text-[28px] min-[460px]:mt-4 min-[460px]:text-[32px] min-[460px]:tracking-[-0.075rem]">
@@ -324,7 +324,7 @@ function HomeView({
 
         <section className={cn(card, 'p-[22px]')}>
           <div className="flex items-center gap-2.5">
-            <Glyph name="campaign-rounded" className="size-6 text-primary" />
+            <Glyph name="campaign-rounded" className="size-6 text-green-700" />
             <h2 className="text-[22px] leading-tight font-bold">Better Kawayan</h2>
           </div>
           <p className="mt-3.5 text-[16px] leading-[1.45]">
@@ -393,17 +393,17 @@ function HomeView({
         <h2 className="text-[22px] leading-tight font-bold">History of Kawayan</h2>
         <p className="mt-1.5 text-[14px] text-ink/70">Learn about the rich heritage of our municipality</p>
         <button type="button" className={cn(card, 'mt-[18px] flex w-full items-center gap-4 p-5 text-left')} onClick={() => setHistory(true)}>
-          <span className="flex size-12 shrink-0 items-center justify-center rounded-[14px] bg-primary/12 text-primary">
+          <span className="flex size-12 shrink-0 items-center justify-center rounded-[14px] bg-green-100 text-green-700">
             <Glyph name="auto-stories-rounded" className="size-6" />
           </span>
           <span className="min-w-0 flex-1">
             <span className="block text-[14px] font-bold">Discover Our Story</span>
-            <span className="mt-1 block text-[12px] leading-[1.4] text-ink/60">
+            <span className="mt-1 block text-[12px] leading-[1.4] text-ink-muted">
               From Barrio Telegrafo to the Municipality of Kawayan — explore centuries of heritage, culture, and
               resilience.
             </span>
           </span>
-          <Glyph name="arrow-forward-ios-rounded" className="size-4 shrink-0 text-primary" />
+          <Glyph name="arrow-forward-ios-rounded" className="size-4 shrink-0 text-green-700" />
         </button>
       </div>
     </div>
@@ -423,7 +423,7 @@ function ServicesView() {
   return (
     <Screen title="Services" search="Search services..." query={query} onQuery={setQuery}>
       {empty ? (
-        <p className="py-12 text-center text-[16px] text-ink/50">No services found</p>
+        <p className="py-12 text-center text-[16px] text-ink-muted">No services found</p>
       ) : (
         <>
           {sections.map((section) => (
@@ -436,7 +436,7 @@ function ServicesView() {
                     <span
                       className={cn(
                         'flex size-11 shrink-0 items-center justify-center rounded-[14px]',
-                        item.tint === 'green' ? 'bg-primary/12 text-primary' : 'bg-gold-100 text-gold-700',
+                        item.tint === 'green' ? 'bg-green-100 text-green-700' : 'bg-gold-100 text-gold-700',
                       )}
                     >
                       <Glyph name={item.icon} className="size-6" />
@@ -461,7 +461,7 @@ function ServicesView() {
                 {guides.map((title) => (
                   <li key={title} className={cn(card, 'flex items-center gap-3 px-5 py-[18px]')}>
                     <span className="min-w-0 flex-1 text-[16px] font-semibold">{title}</span>
-                    <Glyph name="chevron-right-rounded" className="size-6 shrink-0 text-ink/30" />
+                    <Glyph name="chevron-right-rounded" className="size-6 shrink-0 text-ink-subtle" />
                   </li>
                 ))}
               </ul>
@@ -482,12 +482,12 @@ function NewsView({ open, onOpen }: { open: string | null; onOpen: (title: strin
   if (selected) {
     return (
       <div className="px-6 pt-[max(1.5rem,env(safe-area-inset-top))] pb-[calc(8rem+env(safe-area-inset-bottom))]">
-        <button type="button" className="text-[14px] font-semibold text-primary" onClick={() => onOpen(null)}>
+        <button type="button" className="text-[14px] font-semibold text-green-700" onClick={() => onOpen(null)}>
           Back
         </button>
         <img src={selected.image} alt="" className="mt-4 aspect-video w-full rounded-[16px] object-cover" />
         <h1 className="mt-4 text-[28px] leading-[1.2] font-extrabold">{selected.title}</h1>
-        <p className="mt-2 text-[12px] font-semibold text-primary">
+        <p className="mt-2 text-[12px] font-semibold text-green-700">
           {selected.author} · {selected.date}
         </p>
         {selected.body.split(/\n\n+/).map((paragraph) => (
@@ -502,7 +502,7 @@ function NewsView({ open, onOpen }: { open: string | null; onOpen: (title: strin
   return (
     <Screen title="News" search="Search news..." query={query} onQuery={setQuery}>
       {items.length === 0 ? (
-        <p className="py-12 text-center text-[16px] text-ink/50">No news found</p>
+        <p className="py-12 text-center text-[16px] text-ink-muted">No news found</p>
       ) : (
         <ul className="flex flex-col gap-4">
           {items.map((item) => (
@@ -531,13 +531,13 @@ function HotlinesView() {
   return (
     <Screen title="Hotlines" search="Search hotlines..." query={query} onQuery={setQuery}>
       {items.length === 0 ? (
-        <p className="py-12 text-center text-[16px] text-ink/50">No hotlines found</p>
+        <p className="py-12 text-center text-[16px] text-ink-muted">No hotlines found</p>
       ) : (
         <ul className="flex flex-col gap-3">
           {items.map((item) => (
             <li key={item.number}>
               <a href={`tel:${item.number}`} className={cn(card, 'flex gap-3 p-4')}>
-                <span className="flex size-11 shrink-0 items-center justify-center rounded-[14px] bg-primary/12 text-primary">
+                <span className="flex size-11 shrink-0 items-center justify-center rounded-[14px] bg-green-100 text-green-700">
                   <Glyph name="phone-in-talk-rounded" className="size-6" />
                 </span>
                 <span className="min-w-0">
@@ -599,14 +599,14 @@ function SearchField({
   onChange?: (value: string) => void;
 }) {
   return (
-    <label className="flex h-11 min-w-0 flex-1 items-center gap-2 rounded-[16px] border border-ink/10 bg-surface/90 px-2.5 shadow-[0_4px_12px_oklch(0.2_0.04_158/0.05)]">
-      <Glyph name="search-rounded" className="size-[18px] shrink-0 text-primary" />
+    <label className="flex h-11 min-w-0 flex-1 items-center gap-2 rounded-[16px] border border-hairline bg-surface px-2.5 shadow-[0_4px_12px_oklch(0.2_0.04_158/0.05)]">
+      <Glyph name="search-rounded" className="size-[18px] shrink-0 text-green-700" />
       <span className="sr-only">{placeholder}</span>
       <input
         value={onChange ? (value ?? '') : undefined}
         onChange={onChange ? (event) => onChange(event.target.value) : undefined}
         placeholder={placeholder}
-        className="w-full min-w-0 flex-1 bg-transparent text-[16px] font-medium text-ink outline-none placeholder:text-[14px] placeholder:tracking-normal placeholder:text-primary/70"
+        className="w-full min-w-0 flex-1 bg-transparent text-[16px] font-medium text-ink outline-none placeholder:text-[14px] placeholder:tracking-normal placeholder:text-ink-muted"
       />
     </label>
   );
@@ -626,7 +626,7 @@ function IconButton({
       type="button"
       aria-label={label}
       onClick={onClick}
-      className="flex size-11 shrink-0 items-center justify-center rounded-[16px] bg-surface/90 text-primary shadow-[0_4px_12px_oklch(0.2_0.04_158/0.05)]"
+      className="flex size-11 shrink-0 items-center justify-center rounded-[16px] border border-hairline bg-surface text-green-700 shadow-[0_4px_12px_oklch(0.2_0.04_158/0.05)]"
     >
       {children}
     </button>
@@ -650,11 +650,11 @@ function NewsCard({ item }: { item: NewsArticle }) {
       <img src={item.image} alt="" className="aspect-video w-full object-cover" />
       <div className="px-4 pt-3.5 pb-4">
         <p className="flex items-center gap-3 text-[12px]">
-          <span className="inline-flex min-w-0 items-center gap-1 text-ink/60">
+          <span className="inline-flex min-w-0 items-center gap-1 text-ink-muted">
             <Glyph name="person-rounded" className="size-3.5" />
             <span className="truncate">{item.author}</span>
           </span>
-          <span className="inline-flex items-center gap-1.5 font-semibold text-primary">
+          <span className="inline-flex items-center gap-1.5 font-semibold text-green-700">
             <Glyph name="calendar-today-rounded" className="size-3.5" />
             {item.date}
           </span>
