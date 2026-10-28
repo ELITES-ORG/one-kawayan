@@ -7,6 +7,61 @@ export function themeBarSource<T>(splash: T | null, page: T): T {
 }
 
 /**
+ * Android only accepts a hex colour for the status and navigation bars.
+ * A computed background is oklch, and the phone ignores that, so the bars stay
+ * the seal green baked in at install.
+ */
+export function themeBarHex(color: string): string | null {
+  const text = color.trim();
+  const hex = text.match(/^#([0-9a-f]{3}|[0-9a-f]{6})$/i);
+  if (hex) {
+    const raw = hex[1].toLowerCase();
+    const full = raw.length === 3 ? [...raw].map((channel) => channel + channel).join('') : raw;
+    return `#${full}`;
+  }
+
+  const rgb = text.match(
+    /^rgba?\(\s*([0-9.]+)[,\s]+([0-9.]+)[,\s]+([0-9.]+)(?:\s*[,/]\s*([0-9.]+%?))?\s*\)$/i,
+  );
+  if (!rgb) return null;
+  if (rgb[4] !== undefined && rgb[4] !== '1' && rgb[4] !== '100%') return null;
+
+  const bytes = [rgb[1], rgb[2], rgb[3]].map((channel) => Math.round(Number(channel)));
+  if (bytes.some((channel) => Number.isNaN(channel) || channel < 0 || channel > 255)) return null;
+  return `#${bytes.map((channel) => channel.toString(16).padStart(2, '0')).join('')}`;
+}
+
+/** The 1×1 pixel Android can paint, read back from a canvas that understands oklch. */
+export function themeBarHexFromPixel(
+  red: number,
+  green: number,
+  blue: number,
+  alpha: number,
+): string | null {
+  if (alpha !== 255) return null;
+  return themeBarHex(`rgb(${red}, ${green}, ${blue})`);
+}
+
+function themeBarHexFromCanvas(doc: Document, color: string): string | null {
+  const canvas = doc.createElement('canvas');
+  canvas.width = 1;
+  canvas.height = 1;
+  const context = canvas.getContext('2d');
+  if (!context) return null;
+
+  const sentinel = '#010101';
+  context.fillStyle = sentinel;
+  context.fillStyle = color;
+  const accepted = String(context.fillStyle).toLowerCase();
+  if (accepted === sentinel && color.trim().toLowerCase() !== sentinel) return null;
+
+  context.clearRect(0, 0, 1, 1);
+  context.fillRect(0, 0, 1, 1);
+  const [red, green, blue, alpha] = context.getImageData(0, 0, 1, 1).data;
+  return themeBarHexFromPixel(red, green, blue, alpha);
+}
+
+/**
  * Paint the phone's status bar and navigation bar with the colour on screen.
  * A theme-color tag that carries a media query follows the device, not the
  * in-app theme, so the page keeps a single tag with no media.
@@ -16,7 +71,8 @@ export function syncThemeBar(doc: Document = document): void {
   if (!page) return;
   const splash = doc.querySelector(`[${THEME_BAR_ATTR}]`);
   const color = doc.defaultView?.getComputedStyle(themeBarSource(splash, page)).backgroundColor;
-  if (!color || color === 'transparent' || color === 'rgba(0, 0, 0, 0)') return;
+  const hex = color ? (themeBarHex(color) ?? themeBarHexFromCanvas(doc, color)) : null;
+  if (!hex) return;
 
   const metas = [...doc.head.querySelectorAll<HTMLMetaElement>('meta[name="theme-color"]')];
   let meta = metas.find((node) => !node.media);
@@ -25,7 +81,7 @@ export function syncThemeBar(doc: Document = document): void {
     meta.setAttribute('name', 'theme-color');
     doc.head.appendChild(meta);
   }
-  meta.setAttribute('content', color);
+  meta.setAttribute('content', hex);
   meta.removeAttribute('media');
   for (const node of metas) {
     if (node !== meta) node.remove();

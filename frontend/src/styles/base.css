@@ -16,6 +16,7 @@
   }
 
   html {
+    background-color: var(--color-paper);
     scroll-behavior: smooth;
     /* Offset for the sticky header (and staging banner) when jumping to an anchor. */
     scroll-padding-top: calc(5rem + var(--staging-banner-h));
