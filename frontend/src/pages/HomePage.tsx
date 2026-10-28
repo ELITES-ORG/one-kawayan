@@ -4,9 +4,9 @@ import { Glyph, type GlyphName } from '@/components/icons/glyph';
 import { HISTORY } from '@/data/history';
 import { NEWS, type NewsArticle } from '@/data/news';
 import { cn } from '@/lib/cn';
+import { initialScheme, type Scheme } from '@/pages/scheme';
 
 type Tab = 'home' | 'services' | 'news' | 'hotlines';
-type Scheme = 'light' | 'dark';
 
 const TABS: { id: Tab; label: string; icon: GlyphName }[] = [
   { id: 'home', label: 'Home', icon: 'home-rounded' },
@@ -142,7 +142,12 @@ const iconWell = 'flex size-10 items-center justify-center rounded-[12px] bg-gre
 
 export function HomePage() {
   const [tab, setTab] = useState<Tab>('home');
-  const [scheme, setScheme] = useState<Scheme>('light');
+  const [scheme, setScheme] = useState<Scheme>(() =>
+    initialScheme(
+      document.documentElement.dataset.theme,
+      window.matchMedia('(prefers-color-scheme: dark)').matches,
+    ),
+  );
   const [article, setArticle] = useState<string | null>(null);
 
   function applyScheme(next: Scheme) {
