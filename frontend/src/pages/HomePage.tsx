@@ -266,7 +266,16 @@ function HomeView({
   return (
     <div className="pb-[calc(8rem+env(safe-area-inset-bottom))]">
       <header className="relative min-h-[272px] overflow-hidden rounded-b-[34px] bg-gradient-to-br from-green-50 to-paper min-[380px]:min-h-[296px] min-[460px]:min-h-[314px] min-[460px]:rounded-b-[42px]">
-        <div className="pointer-events-none absolute top-10 -right-6 size-60 rounded-full bg-gold-500/25" />
+        <span
+          aria-hidden="true"
+          className="pointer-events-none absolute top-16 right-2 size-36 overflow-hidden opacity-[0.18] min-[380px]:right-4 min-[380px]:size-44 min-[380px]:opacity-20"
+        >
+          <img
+            src="/logos/logo_nobg.png"
+            alt=""
+            className="absolute top-[-52.06%] left-[-52.06%] size-[204.26%] max-w-none"
+          />
+        </span>
         <div className="pointer-events-none absolute -bottom-14 -left-2 size-52 rounded-full bg-primary/15" />
         <div className="relative px-5 pt-[max(0.875rem,env(safe-area-inset-top))]">
           <div className="flex items-center gap-1.5">
@@ -294,7 +303,6 @@ function HomeView({
             </p>
           </div>
         </div>
-        <Logo label="OneKawayan" className="absolute right-0 bottom-2 size-36 min-[380px]:size-40" />
       </header>
 
       <div className="px-6 pt-[26px]">
