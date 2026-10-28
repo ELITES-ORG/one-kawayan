@@ -295,8 +295,8 @@ function HomeView({
               Maayong Adlaw!
             </p>
             <h1 className="mt-3 text-[24px] leading-[1.02] font-extrabold tracking-[-0.03em] text-ink min-[380px]:text-[28px] min-[460px]:mt-4 min-[460px]:text-[32px] min-[460px]:tracking-[-0.075rem]">
-              <span className="min-[380px]:hidden">Welcome to OneKawayan.</span>
-              <span className="hidden min-[380px]:inline">Welcome back to OneKawayan.</span>
+              <span className="block whitespace-nowrap">Welcome to</span>
+              <span className="block whitespace-nowrap text-gold-600">OneKawayan</span>
             </h1>
             <p className="mt-2.5 text-[14px] leading-[1.35] text-ink/80 min-[460px]:mt-3 min-[460px]:text-[16px]">
               <span className="min-[380px]:hidden">Municipal services, local news, and emergency access.</span>
