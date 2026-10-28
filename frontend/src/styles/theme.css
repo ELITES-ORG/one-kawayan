@@ -331,6 +331,11 @@
   color: var(--color-ink);
 }
 
+/* The home banner stays on the dark palette when the page is light. */
+.u-scheme-dark {
+  color-scheme: dark;
+}
+
 [data-theme-specimen='dark'] {
   color-scheme: dark;
   --shadow-xs: 0 0 0 1px oklch(0.94 0.006 158 / 0.08);
