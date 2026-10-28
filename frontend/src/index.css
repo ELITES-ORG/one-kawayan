@@ -1,5 +1,11 @@
-/* Plus Jakarta Sans, weight axis only, self-hosted (ADR 0014, ADR 0016). */
+/* Plus Jakarta Sans stays available for the design system (ADR 0014, ADR 0016).
+   The showcase follows GoAlmeria's Material type, which is Roboto. */
 @import '@fontsource-variable/plus-jakarta-sans/wght.css';
+@import '@fontsource/roboto/400.css';
+@import '@fontsource/roboto/500.css';
+@import '@fontsource/roboto/600.css';
+@import '@fontsource/roboto/700.css';
+@import '@fontsource/roboto/800.css';
 
 @import 'tailwindcss';
 
@@ -8,5 +14,11 @@
 @custom-variant short (@media (max-height: 30rem));
 
 @import './styles/theme.css';
+
+/* Roboto on the showcase, including headings, which otherwise keep the design-system face. */
+.ui-roboto,
+.ui-roboto :is(h1, h2, h3, h4, h5, h6) {
+  font-family: Roboto, ui-sans-serif, system-ui, sans-serif;
+}
 @import './styles/base.css';
 @import './styles/motion.css';

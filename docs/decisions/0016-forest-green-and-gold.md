@@ -1,6 +1,6 @@
 # 0016. Forest green and gold, one typeface
 
-- **Status:** Accepted
+- **Status:** Accepted. The public home's typeface is amended by [0017](./0017-roboto-on-the-public-home.md).
 - **Date:** 2026-10-26
 
 ## Context

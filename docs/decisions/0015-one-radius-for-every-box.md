@@ -1,6 +1,6 @@
 # 0015. One radius for every box
 
-- **Status:** Accepted
+- **Status:** Accepted. The public home's corners are amended by [0017](./0017-roboto-on-the-public-home.md).
 - **Date:** 2026-10-26
 
 ## Context

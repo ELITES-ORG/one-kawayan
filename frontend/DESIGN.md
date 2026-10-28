@@ -25,7 +25,9 @@ not to do. Tokens are in `src/styles/theme.css`. See
 **Type.** Plus Jakarta Sans for everything a person reads
 ([ADR 0016](../docs/decisions/0016-forest-green-and-gold.md),
 [ADR 0014](../docs/decisions/0014-self-hosted-variable-fonts.md)).
-One family. `.u-display` is that face at weight 700. Page titles are 700,
+One family, except the public home, which is Roboto
+([ADR 0017](../docs/decisions/0017-roboto-on-the-public-home.md)).
+`.u-display` is Jakarta at weight 700. Page titles are 700,
 section titles 600, body 400, supporting lines 500.
 
 Size is chosen at the call site: display `text-5xl` / `text-6xl` · h1
@@ -66,6 +68,8 @@ replace Tailwind's own ramps of the same names.
 
 - One radius, 8px, on every box
   ([ADR 0015](../docs/decisions/0015-one-radius-for-every-box.md)).
+  The public home is the exception
+  ([ADR 0017](../docs/decisions/0017-roboto-on-the-public-home.md)).
   `rounded-full` is for avatars, dots, and spinners only.
 - Prefer a hairline to a shadow. Stop at `shadow-lg` for anything in the page.
   `shadow-xl` is for overlays. Shadows are ink-tinted, never neutral black.

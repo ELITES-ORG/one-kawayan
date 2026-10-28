@@ -133,6 +133,19 @@
       scrollbar-color: var(--color-slate-300) transparent;
     }
   }
+
+  /* The page scrolls down. A sideways bar never belongs on this layout. */
+  html {
+    overflow-x: clip;
+  }
+
+  .ui-roboto .overflow-x-auto {
+    scrollbar-width: none;
+  }
+
+  .ui-roboto .overflow-x-auto::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 /* A screen that fills the viewport. Use instead of `min-h-dvh`, which would
