@@ -9,16 +9,23 @@ type Phase = 'visible' | 'leaving' | 'gone';
 
 export function Splash() {
   const [phase, setPhase] = useState<Phase>('visible');
+  // The description does not animate, so a fallback face would show and then
+  // jump when Roboto arrives. It stays hidden until that face can paint.
+  const [copyReady, setCopyReady] = useState(false);
 
   useLayoutEffect(() => {
     syncThemeBar();
-  }, [phase]);
-
-  useEffect(() => {
     if (phase === 'gone') return;
     const previous = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
+    let cancelled = false;
+    const showCopy = () => {
+      if (!cancelled) setCopyReady(true);
+    };
+    if (document.fonts.check('14px Roboto')) showCopy();
+    else void document.fonts.ready.then(showCopy);
     return () => {
+      cancelled = true;
       document.body.style.overflow = previous;
     };
   }, [phase]);
@@ -94,7 +101,9 @@ export function Splash() {
           </span>
         ))}
       </p>
-      <p className="u-scheme-dark mt-2.5 text-center text-[14px] leading-[1.35] text-ink/80 min-[460px]:mt-3 min-[460px]:text-[16px]">
+      <p
+        className={`u-scheme-dark mt-2.5 w-full text-center text-[14px] leading-[1.35] text-ink/80 min-[460px]:mt-3 min-[460px]:text-[16px]${copyReady ? '' : ' invisible'}`}
+      >
         <span className="block whitespace-nowrap">Municipal services, local news,</span>
         <span className="block whitespace-nowrap min-[380px]:hidden">and emergency access.</span>
         <span className="hidden whitespace-nowrap min-[380px]:block">

@@ -9,9 +9,12 @@ export function splashLogoDelayMs(letterCount: number): number {
   return last * SPLASH_LETTER_STAGGER_MS + SPLASH_LETTER_MS;
 }
 
-/** How long the splash stays once the next screen can paint, so the name and logo can finish. */
+/**
+ * How long the splash stays once the next screen can paint.
+ * A ready app still waits out the hold. Reduced motion keeps it short.
+ */
 export function splashHoldMs(reducedMotion: boolean): number {
-  return reducedMotion ? 200 : 1200;
+  return reducedMotion ? 200 : 3000;
 }
 
 /**

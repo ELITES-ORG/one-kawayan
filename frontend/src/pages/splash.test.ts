@@ -8,8 +8,8 @@ describe('splashLogoDelayMs', () => {
 });
 
 describe('splashHoldMs', () => {
-  it('keeps the name on screen long enough to arrive', () => {
-    expect(splashHoldMs(false)).toBe(1200);
+  it('stays at least 3 seconds even when the next screen is ready', () => {
+    expect(splashHoldMs(false)).toBe(3000);
   });
 
   it('shortens the hold when motion is reduced', () => {
