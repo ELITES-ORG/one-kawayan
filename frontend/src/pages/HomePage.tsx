@@ -269,7 +269,7 @@ function HomeView({
 
   return (
     <div className="pb-[calc(8rem+env(safe-area-inset-bottom))]">
-      <header className="relative min-h-[272px] overflow-hidden rounded-b-[34px] bg-gradient-to-br from-green-50 to-paper min-[380px]:min-h-[296px] min-[460px]:min-h-[314px] min-[460px]:rounded-b-[42px]">
+      <header className="u-scheme-dark relative overflow-hidden rounded-b-[34px] bg-gradient-to-br from-green-50 to-paper min-[460px]:rounded-b-[42px]">
         <span
           aria-hidden="true"
           className="pointer-events-none absolute top-16 right-2 size-36 overflow-hidden opacity-[0.18] min-[380px]:right-4 min-[380px]:size-44 min-[380px]:opacity-20"
@@ -291,19 +291,20 @@ function HomeView({
               <Glyph name="notifications-outline-rounded" className="size-[22px]" />
             </IconButton>
           </div>
-          <div className="mt-7 max-w-[52%] pb-8">
-            <p className="inline-flex rounded-full border border-hairline bg-surface px-3.5 py-2 text-[14px] font-extrabold text-green-700">
-              Maayong Adlaw!
-            </p>
-            <h1 className="mt-3 text-[24px] leading-[1.02] font-extrabold tracking-[-0.03em] text-ink min-[380px]:text-[28px] min-[460px]:mt-4 min-[460px]:text-[32px] min-[460px]:tracking-[-0.075rem]">
-              <span className="min-[380px]:hidden">Welcome to OneKawayan.</span>
-              <span className="hidden min-[380px]:inline">Welcome back to OneKawayan.</span>
-            </h1>
+          <div className="mt-7 pb-5">
+            <div className="max-w-[52%]">
+              <p className="inline-flex rounded-full border border-hairline bg-surface px-3.5 py-2 text-[14px] font-extrabold text-green-700">
+                Maayong Adlaw!
+              </p>
+              <h1 className="mt-3 text-[24px] leading-[1.02] font-extrabold tracking-[-0.03em] text-ink min-[380px]:text-[28px] min-[460px]:mt-4 min-[460px]:text-[32px] min-[460px]:tracking-[-0.075rem]">
+                <span className="block whitespace-nowrap">Welcome to</span>
+                <span className="block whitespace-nowrap text-gold-600">OneKawayan</span>
+              </h1>
+            </div>
             <p className="mt-2.5 text-[14px] leading-[1.35] text-ink/80 min-[460px]:mt-3 min-[460px]:text-[16px]">
-              <span className="min-[380px]:hidden">Municipal services, local news, and emergency access.</span>
-              <span className="hidden min-[380px]:inline">
-                Municipal services, local news, and emergency access in one place.
-              </span>
+              <span className="block whitespace-nowrap">Municipal services, local news,</span>
+              <span className="block whitespace-nowrap min-[380px]:hidden">and emergency access.</span>
+              <span className="hidden whitespace-nowrap min-[380px]:block">and emergency access in one place.</span>
             </p>
           </div>
         </div>
