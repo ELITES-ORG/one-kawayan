@@ -233,9 +233,7 @@ function HomeView({
   if (history) {
     return (
       <div className="px-6 pt-[max(1.5rem,env(safe-area-inset-top))] pb-[calc(8rem+env(safe-area-inset-bottom))]">
-        <button type="button" className="text-[14px] font-semibold text-green-700" onClick={() => setHistory(false)}>
-          Back
-        </button>
+        <BackButton onClick={() => setHistory(false)} />
         <h1 className="mt-4 text-[28px] leading-[1.2] font-extrabold tracking-[-0.02em]">History of Kawayan</h1>
         <p className="mt-2 text-[14px] leading-[1.4] text-ink/70">
           From Barrio Telegrafo to the Municipality we know today
@@ -490,9 +488,7 @@ function NewsView({ open, onOpen }: { open: string | null; onOpen: (title: strin
   if (selected) {
     return (
       <div className="px-6 pt-[max(1.5rem,env(safe-area-inset-top))] pb-[calc(8rem+env(safe-area-inset-bottom))]">
-        <button type="button" className="text-[14px] font-semibold text-green-700" onClick={() => onOpen(null)}>
-          Back
-        </button>
+        <BackButton onClick={() => onOpen(null)} />
         <img src={selected.image} alt="" className="mt-4 aspect-video w-full rounded-[16px] object-cover" />
         <h1 className="mt-4 text-[28px] leading-[1.2] font-extrabold">{selected.title}</h1>
         <p className="mt-2 text-[12px] font-semibold text-green-700">
@@ -617,6 +613,19 @@ function SearchField({
         className="w-full min-w-0 flex-1 bg-transparent text-[16px] font-medium text-ink outline-none placeholder:text-[14px] placeholder:tracking-normal placeholder:text-ink-muted"
       />
     </label>
+  );
+}
+
+function BackButton({ onClick }: { onClick: () => void }) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className="inline-flex h-11 items-center gap-1 rounded-[16px] border border-hairline bg-surface px-3.5 text-[14px] font-semibold text-green-700 shadow-[0_4px_12px_oklch(0.2_0.04_158/0.05)]"
+    >
+      <Glyph name="arrow-forward-ios-rounded" className="size-4 -scale-x-100" />
+      Back
+    </button>
   );
 }
 
