@@ -4,6 +4,7 @@ import { Glyph, type GlyphName } from '@/components/icons/glyph';
 import { HISTORY } from '@/data/history';
 import { NEWS, type NewsArticle } from '@/data/news';
 import { cn } from '@/lib/cn';
+import { promptInstall, useInstallState } from '@/pages/install';
 import { initialScheme, type Scheme } from '@/pages/scheme';
 
 type Tab = 'home' | 'services' | 'news' | 'hotlines';
@@ -341,12 +342,7 @@ function HomeView({
           <p className="mt-3.5 text-[16px] leading-[1.45]">
             Create an account to report local issues directly to the municipality.
           </p>
-          <button
-            type="button"
-            className="mt-4 w-full rounded-[18px] bg-primary px-5 py-4 text-[16px] font-bold text-on-primary"
-          >
-            Sign In
-          </button>
+          <InstallButton />
         </section>
 
         <Rule />
@@ -618,6 +614,37 @@ function SearchField({
         className="w-full min-w-0 flex-1 bg-transparent text-[16px] font-medium text-ink outline-none placeholder:text-[14px] placeholder:tracking-normal placeholder:text-ink-muted"
       />
     </label>
+  );
+}
+
+const INSTALL_HINT = {
+  ios: 'In Safari, tap Share, then Add to Home Screen.',
+  manual: "Open your browser's menu and choose Install app or Add to Home screen.",
+} as const;
+
+/** Opens the browser's install dialog where there is one, and says how where there is not. */
+function InstallButton() {
+  const state = useInstallState();
+  const [hint, setHint] = useState(false);
+  const installed = state === 'installed';
+
+  return (
+    <>
+      <button
+        type="button"
+        disabled={installed}
+        onClick={() => {
+          if (state === 'prompt') void promptInstall();
+          else setHint(true);
+        }}
+        className="mt-4 w-full rounded-[18px] bg-primary px-5 py-4 text-[16px] font-bold text-on-primary disabled:opacity-60"
+      >
+        {installed ? 'Installed' : 'Install App'}
+      </button>
+      <p role="status" className="mt-3 text-center text-[14px] leading-[1.4] text-ink/80 empty:hidden">
+        {hint && (state === 'ios' || state === 'manual') ? INSTALL_HINT[state] : ''}
+      </p>
+    </>
   );
 }
 
