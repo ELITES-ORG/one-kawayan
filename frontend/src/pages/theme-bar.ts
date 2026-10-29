@@ -1,9 +1,15 @@
 /** The splash sets this while it covers the page, so the phone bars copy it. */
 export const THEME_BAR_ATTR = 'data-theme-bar';
 
-/** The splash covers the page, so the bars follow it until the page is what you see. */
-export function themeBarSource<T>(splash: T | null, page: T): T {
-  return splash ?? page;
+/** The home banner sets this. The status bar copies it and ignores the theme. */
+export const STATUS_BAR_ATTR = 'data-status-bar';
+
+/**
+ * The splash covers everything. After that, a banner owns the status bar.
+ * Every other screen copies the page.
+ */
+export function themeBarTarget<T>(splash: T | null, status: T | null, page: T): T {
+  return splash ?? status ?? page;
 }
 
 /**
@@ -72,7 +78,8 @@ function themeBarHexFromCanvas(doc: Document, color: string): string | null {
 }
 
 /**
- * Paint the phone's status bar and navigation bar with the colour on screen.
+ * Paint the phone status bar with the colour on screen. The home banner wins
+ * over the page, so that bar stays with the banner when the theme changes.
  * A theme-color tag that carries a media query follows the device, not the
  * in-app theme, so the page keeps a single tag with no media.
  */
@@ -80,7 +87,8 @@ export function syncThemeBar(doc: Document = document): void {
   const page = doc.body;
   if (!page) return;
   const splash = doc.querySelector(`[${THEME_BAR_ATTR}]`);
-  const color = doc.defaultView?.getComputedStyle(themeBarSource(splash, page)).backgroundColor;
+  const status = doc.querySelector(`[${STATUS_BAR_ATTR}]`);
+  const color = doc.defaultView?.getComputedStyle(themeBarTarget(splash, status, page)).backgroundColor;
   const hex = color ? (themeBarHex(color) ?? themeBarHexFromCanvas(doc, color)) : null;
   if (!hex) return;
 
@@ -98,12 +106,24 @@ export function syncThemeBar(doc: Document = document): void {
   }
 }
 
-/** Follow the device theme until the page stores its own choice. */
+/** Follow the device theme until the page stores its own choice, and follow the banner as screens change. */
 export function watchThemeBar(): () => void {
   const media = window.matchMedia('(prefers-color-scheme: dark)');
   const onChange = () => {
     if (!document.documentElement.dataset.theme) syncThemeBar();
   };
   media.addEventListener('change', onChange);
-  return () => media.removeEventListener('change', onChange);
+
+  const observer = new MutationObserver(() => syncThemeBar());
+  observer.observe(document.body, {
+    childList: true,
+    subtree: true,
+    attributes: true,
+    attributeFilter: [STATUS_BAR_ATTR, THEME_BAR_ATTR],
+  });
+
+  return () => {
+    media.removeEventListener('change', onChange);
+    observer.disconnect();
+  };
 }

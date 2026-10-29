@@ -6,7 +6,7 @@ import { NEWS, type NewsArticle } from '@/data/news';
 import { cn } from '@/lib/cn';
 import { promptInstall, useInstallState } from '@/pages/install';
 import { initialScheme, type Scheme } from '@/pages/scheme';
-import { syncThemeBar } from '@/pages/theme-bar';
+import { STATUS_BAR_ATTR, syncThemeBar } from '@/pages/theme-bar';
 
 type Tab = 'home' | 'services' | 'news' | 'hotlines';
 
@@ -272,6 +272,7 @@ function HomeView({
   return (
     <div className="pb-[calc(8rem+env(safe-area-inset-bottom))]">
       <header className="u-scheme-dark relative overflow-hidden rounded-b-[34px] bg-gradient-to-br from-green-50 to-paper min-[460px]:rounded-b-[42px]">
+        <span {...{ [STATUS_BAR_ATTR]: '' }} aria-hidden="true" className="absolute inset-x-0 top-0 h-px bg-green-50" />
         <span
           aria-hidden="true"
           className="pointer-events-none absolute top-16 right-2 size-36 overflow-hidden opacity-[0.18] min-[380px]:right-4 min-[380px]:size-44 min-[380px]:opacity-20"
