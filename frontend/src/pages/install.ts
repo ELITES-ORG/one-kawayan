@@ -36,11 +36,8 @@ interface BeforeInstallPromptEvent extends Event {
   userChoice: Promise<{ outcome: 'accepted' | 'dismissed' }>;
 }
 
-/**
- * The display modes the installed app opens in. The manifest asks for
- * fullscreen; a browser that cannot do that falls back to standalone.
- */
-export const INSTALLED_DISPLAY = '(display-mode: fullscreen), (display-mode: standalone)';
+/** The display mode the installed app opens in, as the manifest asks for it. */
+export const INSTALLED_DISPLAY = '(display-mode: standalone)';
 
 let deferred: BeforeInstallPromptEvent | null = null;
 let installedHere = false;

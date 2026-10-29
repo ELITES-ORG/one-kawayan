@@ -22,8 +22,9 @@ export function bannerUnderStatusBar(top: number, bottom: number): boolean {
 
 /**
  * Android only accepts a hex colour for the status and navigation bars.
- * A computed background is oklch, and the phone ignores that, so the bars stay
- * the seal green baked in at install.
+ * A computed background is oklch, and the phone ignores that, so the status bar
+ * stays the manifest colour baked in at install. The navigation bar always
+ * does: Chrome colours it from the manifest's theme_color, never from the page.
  */
 export function themeBarHex(color: string): string | null {
   const text = color.trim();

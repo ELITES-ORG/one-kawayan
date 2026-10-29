@@ -1,6 +1,6 @@
 # 0018. Open the installed app full screen
 
-- **Status:** Accepted
+- **Status:** Superseded by [0019](./0019-colour-the-navigation-bar-from-the-manifest.md)
 - **Date:** 2026-10-29
 
 ## Context
