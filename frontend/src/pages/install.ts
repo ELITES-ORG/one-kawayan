@@ -36,6 +36,12 @@ interface BeforeInstallPromptEvent extends Event {
   userChoice: Promise<{ outcome: 'accepted' | 'dismissed' }>;
 }
 
+/**
+ * The display modes the installed app opens in. The manifest asks for
+ * fullscreen; a browser that cannot do that falls back to standalone.
+ */
+export const INSTALLED_DISPLAY = '(display-mode: fullscreen), (display-mode: standalone)';
+
 let deferred: BeforeInstallPromptEvent | null = null;
 let installedHere = false;
 let snapshot: InstallState = 'manual';
@@ -45,7 +51,7 @@ function refresh() {
   snapshot = installState({
     standalone:
       installedHere ||
-      window.matchMedia('(display-mode: standalone)').matches ||
+      window.matchMedia(INSTALLED_DISPLAY).matches ||
       (navigator as Navigator & { standalone?: boolean }).standalone === true,
     hasPrompt: deferred !== null,
     ios: isIos(navigator.userAgent, navigator.maxTouchPoints),

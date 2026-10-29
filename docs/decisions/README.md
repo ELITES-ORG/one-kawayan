@@ -54,3 +54,4 @@ Number sequentially. Never renumber.
 | [0015](./0015-one-radius-for-every-box.md) | One radius for every box | Accepted |
 | [0016](./0016-forest-green-and-gold.md) | Forest green and gold, one typeface | Accepted |
 | [0017](./0017-roboto-on-the-public-home.md) | Roboto on the public home, with GoAlmeria's corners | Accepted |
+| [0018](./0018-open-the-installed-app-full-screen.md) | Open the installed app full screen | Accepted |

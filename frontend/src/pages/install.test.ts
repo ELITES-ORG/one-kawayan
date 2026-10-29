@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import { installState, isIos } from './install';
+import manifestText from '../../public/manifest.webmanifest?raw';
+import { INSTALLED_DISPLAY, installState, isIos } from './install';
 
 describe('installState', () => {
   it('is installed when running as the installed app, even with a prompt', () => {
@@ -17,6 +18,13 @@ describe('installState', () => {
 
   it('points at the browser menu when there is no prompt', () => {
     expect(installState({ standalone: false, hasPrompt: false, ios: false })).toBe('manual');
+  });
+});
+
+describe('INSTALLED_DISPLAY', () => {
+  it('recognises the display mode the manifest opens the app in', () => {
+    const manifest = JSON.parse(manifestText) as { display: string };
+    expect(INSTALLED_DISPLAY).toContain(`(display-mode: ${manifest.display})`);
   });
 });
 
