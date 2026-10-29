@@ -1,17 +1,17 @@
 import { describe, expect, it } from 'vitest';
-import { bannerUnderStatusBar, themeBarHex, themeBarHexFromPixel, themeBarSource } from './theme-bar';
+import { bannerUnderStatusBar, themeBarHex, themeBarHexFromPixel, themeBarTarget } from './theme-bar';
 
-describe('themeBarSource', () => {
+describe('themeBarTarget', () => {
   it('copies the splash while it covers the page', () => {
-    expect(themeBarSource('splash', 'banner', 'page')).toBe('splash');
+    expect(themeBarTarget('splash', 'banner', 'page')).toBe('splash');
   });
 
-  it('continues the banner while it sits under the status bar', () => {
-    expect(themeBarSource(null, 'banner', 'page')).toBe('banner');
+  it('copies the banner on the home screen, ahead of the page theme', () => {
+    expect(themeBarTarget(null, 'banner', 'page')).toBe('banner');
   });
 
-  it('copies the page once the splash and the banner are gone', () => {
-    expect(themeBarSource(null, null, 'page')).toBe('page');
+  it('copies the page on a screen with no banner', () => {
+    expect(themeBarTarget(null, null, 'page')).toBe('page');
   });
 });
 

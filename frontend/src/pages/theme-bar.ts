@@ -1,15 +1,18 @@
 /** The splash sets this while it covers the page, so the phone bars copy it. */
 export const THEME_BAR_ATTR = 'data-theme-bar';
 
-/** A banner at the top of the page sets this, so the status bar continues it. */
-export const THEME_BAR_TOP_ATTR = 'data-theme-bar-top';
+/**
+ * The home banner sets this. While the banner is under the status bar, the bar
+ * copies it and ignores the theme.
+ */
+export const STATUS_BAR_ATTR = 'data-status-bar';
 
 /**
- * The splash covers the page, so the bars follow it until the page is what you
- * see. Then the banner, while it sits under the status bar, then the page.
+ * The splash covers everything. After that, a banner owns the status bar.
+ * Every other screen copies the page.
  */
-export function themeBarSource<T>(splash: T | null, banner: T | null, page: T): T {
-  return splash ?? banner ?? page;
+export function themeBarTarget<T>(splash: T | null, status: T | null, page: T): T {
+  return splash ?? status ?? page;
 }
 
 /** The banner meets the status bar from the moment it reaches the top until it scrolls away. */
@@ -91,7 +94,9 @@ function themeBarHexFromCanvas(doc: Document, color: string): string | null {
 }
 
 /**
- * Paint the phone's status bar and navigation bar with the colour on screen.
+ * Paint the phone status bar with the colour on screen. The home banner wins
+ * over the page while it is under the bar, so the bar stays with the banner
+ * when the theme changes, and goes back to the page once it scrolls away.
  * A theme-color tag that carries a media query follows the device, not the
  * in-app theme, so the page keeps a single tag with no media.
  */
@@ -99,12 +104,12 @@ export function syncThemeBar(doc: Document = document): void {
   const page = doc.body;
   if (!page) return;
   const splash = doc.querySelector(`[${THEME_BAR_ATTR}]`);
-  let banner = doc.querySelector(`[${THEME_BAR_TOP_ATTR}]`);
-  if (banner) {
-    const { top, bottom } = banner.getBoundingClientRect();
-    if (!bannerUnderStatusBar(top, bottom)) banner = null;
+  let status = doc.querySelector(`[${STATUS_BAR_ATTR}]`);
+  if (status) {
+    const { top, bottom } = status.getBoundingClientRect();
+    if (!bannerUnderStatusBar(top, bottom)) status = null;
   }
-  const color = doc.defaultView?.getComputedStyle(themeBarSource(splash, banner, page)).backgroundColor;
+  const color = doc.defaultView?.getComputedStyle(themeBarTarget(splash, status, page)).backgroundColor;
   const hex = color ? (themeBarHex(color) ?? themeBarHexFromCanvas(doc, color)) : null;
   if (!hex) return;
 
@@ -122,12 +127,36 @@ export function syncThemeBar(doc: Document = document): void {
   }
 }
 
-/** Follow the device theme until the page stores its own choice. */
+/**
+ * Follow the device theme until the page stores its own choice, and follow the
+ * banner as screens change and as it scrolls under the status bar.
+ */
 export function watchThemeBar(): () => void {
   const media = window.matchMedia('(prefers-color-scheme: dark)');
   const onChange = () => {
     if (!document.documentElement.dataset.theme) syncThemeBar();
   };
   media.addEventListener('change', onChange);
-  return () => media.removeEventListener('change', onChange);
+
+  const observer = new MutationObserver(() => syncThemeBar());
+  observer.observe(document.body, {
+    childList: true,
+    subtree: true,
+    attributes: true,
+    attributeFilter: [STATUS_BAR_ATTR, THEME_BAR_ATTR],
+  });
+
+  let frame = 0;
+  const onScroll = () => {
+    cancelAnimationFrame(frame);
+    frame = requestAnimationFrame(() => syncThemeBar());
+  };
+  window.addEventListener('scroll', onScroll, { passive: true });
+
+  return () => {
+    media.removeEventListener('change', onChange);
+    observer.disconnect();
+    window.removeEventListener('scroll', onScroll);
+    cancelAnimationFrame(frame);
+  };
 }
