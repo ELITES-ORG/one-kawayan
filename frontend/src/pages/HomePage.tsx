@@ -271,8 +271,10 @@ function HomeView({
 
   return (
     <div className="pb-[calc(8rem+env(safe-area-inset-bottom))]">
-      <header className="u-scheme-dark relative overflow-hidden rounded-b-[34px] bg-gradient-to-br from-green-50 to-paper min-[460px]:rounded-b-[42px]">
-        <span {...{ [STATUS_BAR_ATTR]: '' }} aria-hidden="true" className="absolute inset-x-0 top-0 h-px bg-green-50" />
+      <header
+        {...{ [STATUS_BAR_ATTR]: '' }}
+        className="u-scheme-dark relative overflow-hidden rounded-b-[34px] bg-green-50 bg-[linear-gradient(to_bottom,var(--color-green-50),transparent_4rem),linear-gradient(to_bottom_right,var(--color-green-50),var(--color-paper))] min-[460px]:rounded-b-[42px]"
+      >
         <span
           aria-hidden="true"
           className="pointer-events-none absolute top-16 right-2 size-36 overflow-hidden opacity-[0.18] min-[380px]:right-4 min-[380px]:size-44 min-[380px]:opacity-20"

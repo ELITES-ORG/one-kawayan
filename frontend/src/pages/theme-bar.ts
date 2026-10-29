@@ -1,7 +1,10 @@
 /** The splash sets this while it covers the page, so the phone bars copy it. */
 export const THEME_BAR_ATTR = 'data-theme-bar';
 
-/** The home banner sets this. The status bar copies it and ignores the theme. */
+/**
+ * The home banner sets this. While the banner is under the status bar, the bar
+ * copies it and ignores the theme.
+ */
 export const STATUS_BAR_ATTR = 'data-status-bar';
 
 /**
@@ -10,6 +13,11 @@ export const STATUS_BAR_ATTR = 'data-status-bar';
  */
 export function themeBarTarget<T>(splash: T | null, status: T | null, page: T): T {
   return splash ?? status ?? page;
+}
+
+/** The banner meets the status bar from the moment it reaches the top until it scrolls away. */
+export function bannerUnderStatusBar(top: number, bottom: number): boolean {
+  return top <= 0 && bottom > 0;
 }
 
 /**
@@ -53,7 +61,14 @@ export function themeBarHexFromPixel(
   return themeBarHex(`rgb(${red}, ${green}, ${blue})`);
 }
 
+// Scrolling syncs every frame, and the canvas read is the expensive part.
+let cachedColor = '';
+let cachedHex: string | null = null;
+
 function themeBarHexFromCanvas(doc: Document, color: string): string | null {
+  if (color === cachedColor) return cachedHex;
+  cachedColor = color;
+  cachedHex = null;
   const canvas = doc.createElement('canvas');
   canvas.width = 1;
   canvas.height = 1;
@@ -74,12 +89,14 @@ function themeBarHexFromCanvas(doc: Document, color: string): string | null {
   const blue = pixel[2];
   const alpha = pixel[3];
   if (red === undefined || green === undefined || blue === undefined || alpha === undefined) return null;
-  return themeBarHexFromPixel(red, green, blue, alpha);
+  cachedHex = themeBarHexFromPixel(red, green, blue, alpha);
+  return cachedHex;
 }
 
 /**
  * Paint the phone status bar with the colour on screen. The home banner wins
- * over the page, so that bar stays with the banner when the theme changes.
+ * over the page while it is under the bar, so the bar stays with the banner
+ * when the theme changes, and goes back to the page once it scrolls away.
  * A theme-color tag that carries a media query follows the device, not the
  * in-app theme, so the page keeps a single tag with no media.
  */
@@ -87,7 +104,11 @@ export function syncThemeBar(doc: Document = document): void {
   const page = doc.body;
   if (!page) return;
   const splash = doc.querySelector(`[${THEME_BAR_ATTR}]`);
-  const status = doc.querySelector(`[${STATUS_BAR_ATTR}]`);
+  let status = doc.querySelector(`[${STATUS_BAR_ATTR}]`);
+  if (status) {
+    const { top, bottom } = status.getBoundingClientRect();
+    if (!bannerUnderStatusBar(top, bottom)) status = null;
+  }
   const color = doc.defaultView?.getComputedStyle(themeBarTarget(splash, status, page)).backgroundColor;
   const hex = color ? (themeBarHex(color) ?? themeBarHexFromCanvas(doc, color)) : null;
   if (!hex) return;
@@ -99,14 +120,17 @@ export function syncThemeBar(doc: Document = document): void {
     meta.setAttribute('name', 'theme-color');
     doc.head.appendChild(meta);
   }
-  meta.setAttribute('content', hex);
+  if (meta.getAttribute('content') !== hex) meta.setAttribute('content', hex);
   meta.removeAttribute('media');
   for (const node of metas) {
     if (node !== meta) node.remove();
   }
 }
 
-/** Follow the device theme until the page stores its own choice, and follow the banner as screens change. */
+/**
+ * Follow the device theme until the page stores its own choice, and follow the
+ * banner as screens change and as it scrolls under the status bar.
+ */
 export function watchThemeBar(): () => void {
   const media = window.matchMedia('(prefers-color-scheme: dark)');
   const onChange = () => {
@@ -122,8 +146,17 @@ export function watchThemeBar(): () => void {
     attributeFilter: [STATUS_BAR_ATTR, THEME_BAR_ATTR],
   });
 
+  let frame = 0;
+  const onScroll = () => {
+    cancelAnimationFrame(frame);
+    frame = requestAnimationFrame(() => syncThemeBar());
+  };
+  window.addEventListener('scroll', onScroll, { passive: true });
+
   return () => {
     media.removeEventListener('change', onChange);
     observer.disconnect();
+    window.removeEventListener('scroll', onScroll);
+    cancelAnimationFrame(frame);
   };
 }
