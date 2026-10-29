@@ -1,13 +1,35 @@
 import { describe, expect, it } from 'vitest';
-import { themeBarHex, themeBarHexFromPixel, themeBarSource } from './theme-bar';
+import { bannerUnderStatusBar, themeBarHex, themeBarHexFromPixel, themeBarSource } from './theme-bar';
 
 describe('themeBarSource', () => {
   it('copies the splash while it covers the page', () => {
-    expect(themeBarSource('splash', 'page')).toBe('splash');
+    expect(themeBarSource('splash', 'banner', 'page')).toBe('splash');
   });
 
-  it('copies the page once the splash is gone', () => {
-    expect(themeBarSource(null, 'page')).toBe('page');
+  it('continues the banner while it sits under the status bar', () => {
+    expect(themeBarSource(null, 'banner', 'page')).toBe('banner');
+  });
+
+  it('copies the page once the splash and the banner are gone', () => {
+    expect(themeBarSource(null, null, 'page')).toBe('page');
+  });
+});
+
+describe('bannerUnderStatusBar', () => {
+  it('meets the status bar at the top of the page', () => {
+    expect(bannerUnderStatusBar(0, 320)).toBe(true);
+  });
+
+  it('meets the status bar while part of it is scrolled away', () => {
+    expect(bannerUnderStatusBar(-200, 120)).toBe(true);
+  });
+
+  it('leaves the status bar once it has scrolled away', () => {
+    expect(bannerUnderStatusBar(-320, 0)).toBe(false);
+  });
+
+  it('does not meet the status bar when it starts lower on the page', () => {
+    expect(bannerUnderStatusBar(48, 368)).toBe(false);
   });
 });
 

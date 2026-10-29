@@ -1,9 +1,20 @@
 /** The splash sets this while it covers the page, so the phone bars copy it. */
 export const THEME_BAR_ATTR = 'data-theme-bar';
 
-/** The splash covers the page, so the bars follow it until the page is what you see. */
-export function themeBarSource<T>(splash: T | null, page: T): T {
-  return splash ?? page;
+/** A banner at the top of the page sets this, so the status bar continues it. */
+export const THEME_BAR_TOP_ATTR = 'data-theme-bar-top';
+
+/**
+ * The splash covers the page, so the bars follow it until the page is what you
+ * see. Then the banner, while it sits under the status bar, then the page.
+ */
+export function themeBarSource<T>(splash: T | null, banner: T | null, page: T): T {
+  return splash ?? banner ?? page;
+}
+
+/** The banner meets the status bar from the moment it reaches the top until it scrolls away. */
+export function bannerUnderStatusBar(top: number, bottom: number): boolean {
+  return top <= 0 && bottom > 0;
 }
 
 /**
@@ -47,7 +58,14 @@ export function themeBarHexFromPixel(
   return themeBarHex(`rgb(${red}, ${green}, ${blue})`);
 }
 
+// Scrolling syncs every frame, and the canvas read is the expensive part.
+let cachedColor = '';
+let cachedHex: string | null = null;
+
 function themeBarHexFromCanvas(doc: Document, color: string): string | null {
+  if (color === cachedColor) return cachedHex;
+  cachedColor = color;
+  cachedHex = null;
   const canvas = doc.createElement('canvas');
   canvas.width = 1;
   canvas.height = 1;
@@ -68,7 +86,8 @@ function themeBarHexFromCanvas(doc: Document, color: string): string | null {
   const blue = pixel[2];
   const alpha = pixel[3];
   if (red === undefined || green === undefined || blue === undefined || alpha === undefined) return null;
-  return themeBarHexFromPixel(red, green, blue, alpha);
+  cachedHex = themeBarHexFromPixel(red, green, blue, alpha);
+  return cachedHex;
 }
 
 /**
@@ -80,7 +99,12 @@ export function syncThemeBar(doc: Document = document): void {
   const page = doc.body;
   if (!page) return;
   const splash = doc.querySelector(`[${THEME_BAR_ATTR}]`);
-  const color = doc.defaultView?.getComputedStyle(themeBarSource(splash, page)).backgroundColor;
+  let banner = doc.querySelector(`[${THEME_BAR_TOP_ATTR}]`);
+  if (banner) {
+    const { top, bottom } = banner.getBoundingClientRect();
+    if (!bannerUnderStatusBar(top, bottom)) banner = null;
+  }
+  const color = doc.defaultView?.getComputedStyle(themeBarSource(splash, banner, page)).backgroundColor;
   const hex = color ? (themeBarHex(color) ?? themeBarHexFromCanvas(doc, color)) : null;
   if (!hex) return;
 
@@ -91,7 +115,7 @@ export function syncThemeBar(doc: Document = document): void {
     meta.setAttribute('name', 'theme-color');
     doc.head.appendChild(meta);
   }
-  meta.setAttribute('content', hex);
+  if (meta.getAttribute('content') !== hex) meta.setAttribute('content', hex);
   meta.removeAttribute('media');
   for (const node of metas) {
     if (node !== meta) node.remove();

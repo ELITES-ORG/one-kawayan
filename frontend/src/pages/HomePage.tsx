@@ -1,4 +1,4 @@
-import { useState, type ReactNode } from 'react';
+import { useEffect, useState, type ReactNode } from 'react';
 import { Logo } from '@/components/icons/Logo';
 import { Glyph, type GlyphName } from '@/components/icons/glyph';
 import { HISTORY } from '@/data/history';
@@ -6,7 +6,7 @@ import { NEWS, type NewsArticle } from '@/data/news';
 import { cn } from '@/lib/cn';
 import { promptInstall, useInstallState } from '@/pages/install';
 import { initialScheme, type Scheme } from '@/pages/scheme';
-import { syncThemeBar } from '@/pages/theme-bar';
+import { syncThemeBar, THEME_BAR_TOP_ATTR } from '@/pages/theme-bar';
 
 type Tab = 'home' | 'services' | 'news' | 'hotlines';
 
@@ -152,6 +152,9 @@ export function HomePage() {
   );
   const [article, setArticle] = useState<string | null>(null);
 
+  // Only the home view has the banner, so another tab hands the bar back to the page.
+  useEffect(() => syncThemeBar(), [tab]);
+
   function applyScheme(next: Scheme) {
     setScheme(next);
     document.documentElement.dataset.theme = next;
@@ -238,6 +241,21 @@ function HomeView({
   const [history, setHistory] = useState(false);
   const tiles = expanded ? [...QUICK, ...QUICK_MORE] : QUICK;
 
+  // The status bar continues the banner until it scrolls away, then the page.
+  useEffect(() => {
+    syncThemeBar();
+    let frame = 0;
+    const onScroll = () => {
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(() => syncThemeBar());
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      cancelAnimationFrame(frame);
+    };
+  }, [history]);
+
   if (history) {
     return (
       <div className="px-6 pt-[max(1.5rem,env(safe-area-inset-top))] pb-[calc(8rem+env(safe-area-inset-bottom))]">
@@ -271,7 +289,10 @@ function HomeView({
 
   return (
     <div className="pb-[calc(8rem+env(safe-area-inset-bottom))]">
-      <header className="u-scheme-dark relative overflow-hidden rounded-b-[34px] bg-gradient-to-br from-green-50 to-paper min-[460px]:rounded-b-[42px]">
+      <header
+        {...{ [THEME_BAR_TOP_ATTR]: '' }}
+        className="u-scheme-dark relative overflow-hidden rounded-b-[34px] bg-green-50 bg-[linear-gradient(to_bottom,var(--color-green-50),transparent_4rem),linear-gradient(to_bottom_right,var(--color-green-50),var(--color-paper))] min-[460px]:rounded-b-[42px]"
+      >
         <span
           aria-hidden="true"
           className="pointer-events-none absolute top-16 right-2 size-36 overflow-hidden opacity-[0.18] min-[380px]:right-4 min-[380px]:size-44 min-[380px]:opacity-20"
