@@ -52,9 +52,9 @@ export const NEWS: NewsArticle[] = [
   {
     "title": "KAWAYAN FIESTA 2026 GRAND RAFFLE DRAW | OFFICIAL MECHANICS",
     "author": "Kawayan Public Information Office",
-    "date": "May 9, 2026",
+    "date": "October 21, 2026",
     "image": "/news/43.jpg",
-    "body": "Here's everything you need to know about the Grand Raffle Draw happening tomorrow, October 22, 2026, at 7:00 PM, at the Kawayan Food Park, Municipal Port.\nTickets are still available for ₱100 each until tomorrow, October 22, at 4:00 PM!\nGet your tickets and join us for an exciting night of prizes and entertainment!"
+    "body": "Here's everything you need to know about the Grand Raffle Draw happening today, October 22, 2026, at 7:00 PM, at the Kawayan Food Park, Municipal Port.\nTickets are still available for ₱100 each until tomorrow, October 22, at 4:00 PM!\nGet your tickets and join us for an exciting night of prizes and entertainment!"
   },
   {
     "title": "Upholding Public Order: Sangguniang Bayan Conducts Legislative Hearing",
