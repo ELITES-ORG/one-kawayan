@@ -33,7 +33,14 @@ export const NEWS: NewsArticle[] = [
     "author": "Kawayan Public Information Office",
     "date": "October 28 2026",
     "image": "/news/40.jpg",
-    "body": "The Municipality of Kawayan staged its most spectacular musical festival to date, MusiKawayan 2026, transforming the Municipal Grounds into a vibrant hub of rhythm and sound. Held as a highlight of the annual Town Fiesta celebration, the event drew thousands of enthusiastic residents and visitors who came together for a night of electrifying performances."
+    "body": "The Municipality of Kawayan staged its most spectacular musical festival to date, MusiKawayan 2026, transforming the Municipal Grounds into a vibrant hub of rhythm and sound. Held as a highlight of the annual Town Fiesta celebration, the event drew thousands of enthusiastic residents and visitors who came together for a day of electrifying performances."
+  },
+  {
+    "title": "200 Kawayanons Get TUPAD Payout, Boosting Livelihood",
+    "author": "Kawayan Public Information Office",
+    "date": "October 28, 2026",
+    "image": "/news/41.jpg",
+    "body": "Two hundred (200) beneficiaries from the Municipality of Kawayan received their Tulong Panghanapbuhay sa Ating Disadvantaged Workers (TUPAD) payout today, October 28, at the Municipal Isolation Facility.\nThe payout was led by Mrs. Flordelis Oballo-Ceniza, Senior Labor and Employment Officer of the DOLE Biliran Field Office, together with DOLE personnel.\nMunicipal Mayor Hon. Rodolfo J. Espina was also present to deliver his message of support to the beneficiaries, reaffirming the LGU's commitment to programs that provide temporary employment and livelihood assistance to Kawayanons."
   },
   {
     "title": "A Tribute to the Heart of the Home: Kawayan Celebrates Mother’s Day",
